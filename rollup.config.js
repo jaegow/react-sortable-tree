@@ -1,4 +1,5 @@
 import nodeResolve from 'rollup-plugin-node-resolve';
+import copy from 'rollup-plugin-copy'
 import commonjs from 'rollup-plugin-commonjs';
 import babel from 'rollup-plugin-babel';
 import postcss from 'rollup-plugin-postcss';
@@ -32,6 +33,12 @@ export default {
   plugins: [
     nodeResolve(),
     postcss({ extract: './style.css' }),
+    copy({
+      targets: [
+        { src: 'node_modules/@types/react-sortable-tree/index.d.ts', dest: 'dist' },
+        { src: 'node_modules/@types/react-sortable-tree/utils', dest: 'dist' },
+      ]
+    }),
     commonjs({
       include: 'node_modules/**',
     }),
