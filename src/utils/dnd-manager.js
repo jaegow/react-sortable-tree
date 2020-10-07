@@ -6,6 +6,10 @@ import { memoizedInsertNode } from './memoized-tree-data-utils';
 export default class DndManager {
   constructor(treeRef) {
     this.treeRef = treeRef;
+    this.lastMove = {
+      draggingId: null,
+      hoveredId: null
+    }
   }
 
   get startDrag() {
@@ -228,9 +232,23 @@ export default class DndManager {
           // Or hovered above the same node but at a different depth
           targetDepth !== dropTargetProps.path.length - 1;
 
+        if (draggedNode.id === dropTargetProps.node.id) {
+          this.lastMove.draggingId = null;
+          this.lastMove.hoveredId = null;
+        }
+
         if (!needsRedraw) {
           return;
         }
+
+        if (draggedNode.id === this.lastMove.draggingId && dropTargetProps.node.id === this.lastMove.hoveredId) {
+          return
+        }
+
+        this.lastMove = {
+          draggingId: draggedNode.id,
+          hoveredId: dropTargetProps.node.id
+        };
 
         // throttle `dragHover` work to available animation frames
         cancelAnimationFrame(this.rafId);
