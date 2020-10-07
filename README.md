@@ -12,6 +12,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/frontend-collective/react-sortable-tree/badge.svg?branch=master)](https://coveralls.io/github/frontend-collective/react-sortable-tree?branch=master)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
+> Forked from: https://github.com/frontend-collective/react-sortable-tree
+> Added mobx state management
 > A React component for Drag-and-drop sortable representation of hierarchical data. Checkout the [Storybook](https://frontend-collective.github.io/react-sortable-tree/) for a demonstration of some basic and advanced features.
 
 <div align="center">
