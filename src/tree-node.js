@@ -1,4 +1,5 @@
 import React, { Component, Children, cloneElement } from 'react';
+import {observer} from "mobx-react";
 import PropTypes from 'prop-types';
 import classnames from './utils/classnames';
 import './tree-node.css';
@@ -201,4 +202,4 @@ TreeNode.propTypes = {
   rowDirection: PropTypes.string,
 };
 
-export default TreeNode;
+export default observer(TreeNode);
