@@ -1,6 +1,6 @@
 {
   "name": "react-sortable-tree-w",
-  "version": "1.0.4",
+  "version": "1.0.10",
   "description": "Drag-and-drop sortable component for nested data and hierarchies",
   "scripts": {
     "prebuild": "yarn run lint && yarn run clean",
@@ -19,6 +19,7 @@
   },
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist",
     "style.css"
