@@ -29,6 +29,8 @@ export default {
     'frontend-collective-react-dnd-scrollzone',
     'react-virtualized',
     'lodash.isequal',
+    "mobx",
+    "mobx-react"
   ],
   plugins: [
     nodeResolve(),
