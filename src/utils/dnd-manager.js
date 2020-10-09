@@ -1,5 +1,6 @@
 import { DragSource as dragSource, DropTarget as dropTarget } from 'react-dnd';
 import { findDOMNode } from 'react-dom';
+import {observer} from "mobx-react";
 import { getDepth } from './tree-data-utils';
 import { memoizedInsertNode } from './memoized-tree-data-utils';
 
@@ -199,7 +200,7 @@ export default class DndManager {
       this.dndType,
       nodeDragSource,
       nodeDragSourcePropInjection
-    )(el);
+    )(observer(el));
   }
 
   wrapTarget(el) {
@@ -279,7 +280,7 @@ export default class DndManager {
       this.dndType,
       nodeDropTarget,
       nodeDropTargetPropInjection
-    )(el);
+    )(observer(el));
   }
 
   wrapPlaceholder(el) {
@@ -315,6 +316,6 @@ export default class DndManager {
       this.dndType,
       placeholderDropTarget,
       placeholderPropInjection
-    )(el);
+    )(observer(el));
   }
 }
