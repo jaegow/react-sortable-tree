@@ -37,8 +37,9 @@ export default {
     postcss({ extract: './style.css' }),
     copy({
       targets: [
-        { src: 'node_modules/@types/react-sortable-tree/index.d.ts', dest: './dist' },
-        { src: 'node_modules/@types/react-sortable-tree/utils', dest: './dist' },
+        { src: 'src/index.d.ts', dest: './dist' },
+        { src: 'src/utils/tree-data-utils.d.ts', dest: './dist/utils' },
+        { src: 'src/utils/default-handlers.d.ts', dest: './dist/utils' },
       ]
     }),
     commonjs({

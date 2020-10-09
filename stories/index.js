@@ -3,6 +3,7 @@
 import { storiesOf } from '@storybook/react';
 import React from 'react';
 import AddRemoveExample from './add-remove';
+import LazyRenderExample from './lazy-render';
 import BarebonesExample from './barebones';
 import BarebonesExampleNoContext from './barebones-no-context';
 import CallbacksExample from './callbacks';
@@ -30,7 +31,8 @@ storiesOf('Basics', module)
   .add('Search', () => <SearchExample />)
   .add('Themes', () => <ThemesExample />)
   .add('Callbacks', () => <CallbacksExample />)
-  .add('Row direction support', () => <RowDirectionExample />);
+  .add('Row direction support', () => <RowDirectionExample />)
+  .add('Lazy Render', () => <LazyRenderExample />)
 
 storiesOf('Advanced', module)
   .add('Drag from external source', () => <ExternalNodeExample />)

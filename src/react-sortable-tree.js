@@ -11,6 +11,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { polyfill } from 'react-lifecycles-compat';
 import { AutoSizer, List } from 'react-virtualized';
 import 'react-virtualized/styles.css';
+import { InView } from 'react-intersection-observer';
 import NodeRendererDefault from './node-renderer-default';
 import PlaceholderRendererDefault from './placeholder-renderer-default';
 import './react-sortable-tree.css';
@@ -82,6 +83,7 @@ class ReactSortableTree extends Component {
       nodeContentRenderer,
       treeNodeRenderer,
       isVirtualized,
+      lazyRenderItemsCount,
       slideRegionSize,
     } = mergeTheme(props);
 
@@ -91,6 +93,7 @@ class ReactSortableTree extends Component {
     this.treeId = `rst__${treeIdCounter}`;
     treeIdCounter += 1;
     this.dndType = dndType || this.treeId;
+    this.itemsOnPage = lazyRenderItemsCount;
     this.nodeContentRenderer = this.dndManager.wrapSource(nodeContentRenderer);
     this.treePlaceholderRenderer = this.dndManager.wrapPlaceholder(
       TreePlaceholder
@@ -114,7 +117,7 @@ class ReactSortableTree extends Component {
       searchMatches: [],
       searchFocusTreeIndex: null,
       dragging: false,
-
+      lazyRenderItemsCount: Math.max(lazyRenderItemsCount, 0),
       // props that need to be used in gDSFP or static functions will be stored here
       instanceProps: {
         treeData: [],
@@ -221,6 +224,7 @@ class ReactSortableTree extends Component {
       ignoreCollapsed: true,
       getNodeKey: this.props.getNodeKey,
       treeData,
+      maxLength: this.state.lazyRenderItemsCount
     });
   }
 
@@ -604,8 +608,25 @@ class ReactSortableTree extends Component {
           {...sharedProps}
           {...nodeProps}
         />
+        {this.renderViewPortDetector(listIndex)}
       </TreeNodeRenderer>
     );
+  }
+
+  renderViewPortDetector(listIndex) {
+    const maxItemsCount = this.state.lazyRenderItemsCount;
+    const canRender = maxItemsCount ? listIndex >= maxItemsCount - 2 : false;
+
+    return canRender ? <InView>
+      {({ inView, ref }) => {
+        if (inView) {
+          this.setState({
+            lazyRenderItemsCount: maxItemsCount + this.itemsOnPage
+          });
+        }
+        return <div ref={ref}/>
+      }}
+    </InView> : <div/>
   }
 
   render() {
@@ -835,6 +856,10 @@ ReactSortableTree.propTypes = {
   // NOTE: Auto-scrolling while dragging, and scrolling to the `searchFocusOffset` will be disabled.
   isVirtualized: PropTypes.bool,
 
+  // Count of lazy rendering
+  // Set less to 0 or undefined for disabled
+  lazyRenderItemsCount: PropTypes.number,
+
   treeNodeRenderer: PropTypes.func,
 
   // Override the default component for rendering nodes (but keep the scaffolding generator)
@@ -914,6 +939,7 @@ ReactSortableTree.defaultProps = {
   getNodeKey: defaultGetNodeKey,
   innerStyle: {},
   isVirtualized: true,
+  lazyRenderItemsCount: 0,
   maxDepth: null,
   treeNodeRenderer: null,
   nodeContentRenderer: null,

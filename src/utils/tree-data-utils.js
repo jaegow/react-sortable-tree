@@ -81,6 +81,7 @@ export function getDescendantCount({ node, ignoreCollapsed = true }) {
  * @param {Object} args.node - A tree node
  * @param {Object=} args.parentNode - The parent node of `node`
  * @param {number} args.currentIndex - The treeIndex of `node`
+ * @param {number} args.maxLength - Max Count of Nodes
  * @param {number[]|string[]} args.path - Array of keys leading up to node to be changed
  * @param {number[]} args.lowerSiblingCounts - An array containing the count of siblings beneath the
  *                                             previous nodes in this path
@@ -96,6 +97,7 @@ function walkDescendants({
   node,
   parentNode = null,
   currentIndex,
+  maxLength,
   path = [],
   lowerSiblingCounts = [],
 }) {
@@ -132,7 +134,7 @@ function walkDescendants({
 
   // Get all descendants
   let childIndex = currentIndex;
-  const childCount = node.children.length;
+  const childCount = maxLength > 0 ? Math.min(maxLength, node.children.length) : node.children.length;
   if (typeof node.children !== 'function') {
     for (let i = 0; i < childCount; i += 1) {
       childIndex = walkDescendants({
@@ -319,6 +321,7 @@ export function getVisibleNodeInfoAtIndex({
  * @param {!Object[]} treeData - Tree data
  * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
  * @param {function} callback - Function to call on each node
+ * @param {number} maxLength - Max Count of Nodes
  * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
  *
  * @return void
@@ -327,6 +330,7 @@ export function walk({
   treeData,
   getNodeKey,
   callback,
+  maxLength,
   ignoreCollapsed = true,
 }) {
   if (!treeData || treeData.length < 1) {
@@ -337,6 +341,7 @@ export function walk({
     callback,
     getNodeKey,
     ignoreCollapsed,
+    maxLength,
     isPseudoRoot: true,
     node: { children: treeData },
     currentIndex: -1,
@@ -941,7 +946,7 @@ export function insertNode({
  * @param {!Object[]} treeData - Tree data
  * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
  * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
- *
+ * @param {number} maxLength - Max Count of Nodes
  * @return {{
  *      node: Object,
  *      path: []string|[]number,
@@ -952,6 +957,7 @@ export function getFlatDataFromTree({
   treeData,
   getNodeKey,
   ignoreCollapsed = true,
+  maxLength,
 }) {
   if (!treeData || treeData.length < 1) {
     return [];
@@ -961,6 +967,7 @@ export function getFlatDataFromTree({
   walk({
     treeData,
     getNodeKey,
+    maxLength,
     ignoreCollapsed,
     callback: nodeInfo => {
       flattened.push(nodeInfo);
