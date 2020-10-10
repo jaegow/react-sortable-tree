@@ -609,25 +609,8 @@ class ReactSortableTree extends Component {
           {...sharedProps}
           {...nodeProps}
         />
-        {this.renderViewPortDetector(listIndex)}
       </TreeNodeRenderer>
     );
-  }
-
-  renderViewPortDetector(listIndex) {
-    const maxItemsCount = this.state.lazyRenderItemsCount;
-    const canRender = maxItemsCount ? listIndex >= maxItemsCount - 2 : false;
-
-    return canRender ? <InView>
-      {({ inView, ref }) => {
-        if (inView) {
-          this.setState({
-            lazyRenderItemsCount: maxItemsCount + this.itemsOnPage
-          });
-        }
-        return <div ref={ref}/>
-      }}
-    </InView> : <div/>
   }
 
   render() {
@@ -694,7 +677,7 @@ class ReactSortableTree extends Component {
         : {};
 
     let containerStyle = style;
-    let list;
+    let list = [];
     if (rows.length < 1) {
       const Placeholder = this.treePlaceholderRenderer;
       const PlaceholderContent = placeholderRenderer;
@@ -758,27 +741,44 @@ class ReactSortableTree extends Component {
       );
     } else {
       // Render list without react-virtualized
-      list = rows.map((row, index) =>
-        this.renderRow(row, {
+      rows.forEach((row, index) => {
+        list.push(this.renderRow(row, {
           listIndex: index,
           style: {
             height:
-              typeof rowHeight !== 'function'
-                ? rowHeight
-                : rowHeight({
-                    index,
-                    treeIndex: index,
-                    node: row.node,
-                    path: row.path,
-                  }),
+                typeof rowHeight !== 'function'
+                    ? rowHeight
+                    : rowHeight({
+                      index,
+                      treeIndex: index,
+                      node: row.node,
+                      path: row.path,
+                    }),
           },
           getPrevRow: () => rows[index - 1] || null,
           matchKeys,
           swapFrom,
           swapDepth: draggedDepth,
           swapLength,
-        })
-      );
+        }))
+        const maxItemsCount = this.state.lazyRenderItemsCount;
+        const canRender = maxItemsCount ? index >= maxItemsCount - 4 : false;
+        if (canRender) {
+          const key = Math.floor(new Date().getTime() * Math.random());
+          list.push(<InView key={key}>
+            {({ inView, ref }) => {
+              if (inView) {
+                setTimeout(() => {
+                  this.setState({
+                    lazyRenderItemsCount: maxItemsCount + this.itemsOnPage
+                  });
+                }, 10)
+              }
+              return <div ref={ref}/>
+            }}
+          </InView>);
+        }
+      });
     }
 
     return (

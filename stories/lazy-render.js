@@ -18,9 +18,9 @@ export default class App extends Component {
 
     render() {
         return (
-            <div style={{ height: 300 }}>
+            <div style={{ height: 700 }}>
                 <SortableTree
-                    lazyRenderItemsCount={10}
+                    lazyRenderItemsCount={20}
                     isVirtualized={false}
                     treeData={this.state.treeData}
                     onChange={treeData => this.setState({ treeData })}

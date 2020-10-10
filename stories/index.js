@@ -32,7 +32,6 @@ storiesOf('Basics', module)
   .add('Themes', () => <ThemesExample />)
   .add('Callbacks', () => <CallbacksExample />)
   .add('Row direction support', () => <RowDirectionExample />)
-  .add('Lazy Render', () => <LazyRenderExample />)
 
 storiesOf('Advanced', module)
   .add('Drag from external source', () => <ExternalNodeExample />)
@@ -45,3 +44,6 @@ storiesOf('Advanced', module)
   .add('Minimal implementation without Dnd Context', () => (
     <BarebonesExampleNoContext />
   ));
+
+storiesOf('Worldee', module)
+.add('Lazy Render', () => <LazyRenderExample />)
