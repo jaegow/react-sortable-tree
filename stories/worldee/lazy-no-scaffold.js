@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SortableTree from '../src';
+import SortableTree from '../../src';
 // In your own app, you would need to use import styles once in the app
 // import 'react-sortable-tree/styles.css';
 
@@ -18,14 +18,15 @@ export default class App extends Component {
 
     render() {
         return (
-            <div style={{ height: 700 }}>
-                <SortableTree
-                    lazyRenderItemsCount={20}
-                    isVirtualized={false}
-                    treeData={this.state.treeData}
-                    onChange={treeData => this.setState({ treeData })}
-                />
-            </div>
+            <SortableTree
+                lazyRenderItemsCount={40}
+                isVirtualized={false}
+                treeData={this.state.treeData}
+                onChange={treeData => this.setState({ treeData })}
+                className="rst__linear"
+                customRowHeight
+                ignoreScaffold
+            />
         );
     }
 }

@@ -19,3 +19,10 @@
 .ReactVirtualized__Grid {
   outline: none;
 }
+.rst__linear > .rst__node {
+   height: 100% !important;
+   z-index: 0;
+}
+.rst__linear > .rst__node .rst__nodeContent {
+  position: relative;
+}

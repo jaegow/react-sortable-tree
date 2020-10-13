@@ -213,6 +213,8 @@ export interface ReactSortableTreeProps extends ThemeTreeProps {
     className?: string;
     isVirtualized?: boolean;
     lazyRenderItemsCount?: number;
+    ignoreScaffold?: boolean;
+    customRowHeight?: boolean;
 }
 
 declare const SortableTree: React.ComponentType<ReactSortableTreeProps>;

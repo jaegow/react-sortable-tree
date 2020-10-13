@@ -17,6 +17,7 @@ import NodeRendererDefault from './node-renderer-default';
 import PlaceholderRendererDefault from './placeholder-renderer-default';
 import './react-sortable-tree.css';
 import TreeNode from './tree-node';
+import TreeNodeNoScaffold from './tree-node-no-scaffold';
 import TreePlaceholder from './tree-placeholder';
 import classnames from './utils/classnames';
 import {
@@ -58,7 +59,7 @@ const mergeTheme = props => {
     rowHeight: 62,
     scaffoldBlockPxWidth: 44,
     slideRegionSize: 100,
-    treeNodeRenderer: TreeNode,
+    treeNodeRenderer: props.ignoreScaffold ? TreeNodeNoScaffold : TreeNode,
   };
   Object.keys(overridableDefaults).forEach(propKey => {
     // If prop has been specified, do not change it
@@ -85,6 +86,8 @@ class ReactSortableTree extends Component {
       treeNodeRenderer,
       isVirtualized,
       lazyRenderItemsCount,
+      ignoreScaffold,
+      customRowHeight,
       slideRegionSize,
     } = mergeTheme(props);
 
@@ -95,6 +98,8 @@ class ReactSortableTree extends Component {
     treeIdCounter += 1;
     this.dndType = dndType || this.treeId;
     this.itemsOnPage = lazyRenderItemsCount;
+    this.ignoreScaffold = ignoreScaffold;
+    this.customRowHeight = customRowHeight;
     this.nodeContentRenderer = this.dndManager.wrapSource(nodeContentRenderer);
     this.treePlaceholderRenderer = this.dndManager.wrapPlaceholder(
       TreePlaceholder
@@ -745,7 +750,7 @@ class ReactSortableTree extends Component {
       rows.forEach((row, index) => {
         list.push(this.renderRow(row, {
           listIndex: index,
-          style: {
+          style: this.customRowHeight ? {} : {
             height:
                 typeof rowHeight !== 'function'
                     ? rowHeight
@@ -862,6 +867,12 @@ ReactSortableTree.propTypes = {
   // Set less to 0 or undefined for disabled
   lazyRenderItemsCount: PropTypes.number,
 
+  // Ignore all scaffolds => no left lines for display tree structure
+  ignoreScaffold: PropTypes.bool,
+
+  // Ignore computing¨row height
+  customRowHeight: PropTypes.bool,
+
   treeNodeRenderer: PropTypes.func,
 
   // Override the default component for rendering nodes (but keep the scaffolding generator)
@@ -942,6 +953,8 @@ ReactSortableTree.defaultProps = {
   innerStyle: {},
   isVirtualized: true,
   lazyRenderItemsCount: 0,
+  ignoreScaffold: false,
+  customRowHeight: false,
   maxDepth: null,
   treeNodeRenderer: null,
   nodeContentRenderer: null,
