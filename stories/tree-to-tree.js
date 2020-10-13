@@ -35,7 +35,8 @@ class App extends Component {
           <SortableTree
             treeData={this.state.treeData1}
             onChange={treeData1 => this.setState({ treeData1 })}
-            dndType={externalNodeType}
+            dragDnDType={externalNodeType}
+            dropDnDType={[externalNodeType]}
             shouldCopyOnOutsideDrop={shouldCopyOnOutsideDrop}
           />
         </div>
@@ -51,7 +52,8 @@ class App extends Component {
           <SortableTree
             treeData={this.state.treeData2}
             onChange={treeData2 => this.setState({ treeData2 })}
-            dndType={externalNodeType}
+            dragDnDType={externalNodeType}
+            dropDnDType={[externalNodeType]}
             shouldCopyOnOutsideDrop={shouldCopyOnOutsideDrop}
           />
         </div>

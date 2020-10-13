@@ -133,6 +133,8 @@ export default class App extends Component {
             //
             // The query string used in the search. This is required for searching.
             searchQuery={searchString}
+            dragDnDType="example"
+            dropDnDType={["example"]}
             //
             // When matches are found, this property lets you highlight a specific
             // match and scroll to it. This is optional.

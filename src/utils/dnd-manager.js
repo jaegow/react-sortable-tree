@@ -32,8 +32,12 @@ export default class DndManager {
     return this.treeRef.treeId;
   }
 
-  get dndType() {
-    return this.treeRef.dndType;
+  get dragDnDType() {
+    return this.treeRef.dragDnDType;
+  }
+
+  get dropDnDType() {
+    return this.treeRef.dropDnDType;
   }
 
   get treeData() {
@@ -196,7 +200,7 @@ export default class DndManager {
     }
 
     return dragSource(
-      this.dndType,
+      this.dragDnDType,
       nodeDragSource,
       nodeDragSourcePropInjection
     )(el);
@@ -276,7 +280,7 @@ export default class DndManager {
     }
 
     return dropTarget(
-      this.dndType,
+      this.dropDnDType,
       nodeDropTarget,
       nodeDropTargetPropInjection
     )(el);
@@ -312,7 +316,7 @@ export default class DndManager {
     }
 
     return dropTarget(
-      this.dndType,
+      this.dropDnDType,
       placeholderDropTarget,
       placeholderPropInjection
     )(el);

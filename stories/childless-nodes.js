@@ -53,6 +53,8 @@ export default class App extends Component {
             treeData={this.state.treeData}
             canNodeHaveChildren={node => !node.isPerson}
             onChange={treeData => this.setState({ treeData })}
+            dragDnDType="example"
+            dropDnDType={["example"]}
           />
         </div>
       </div>

@@ -43,6 +43,8 @@ export default class App extends Component {
         ↓treeData for this tree was generated from flat data similar to DB rows↓
         <div style={{ height: 250 }}>
           <SortableTree
+            dragDnDType="example"
+            dropDnDType={["example"]}
             treeData={this.state.treeData}
             onChange={treeData => this.setState({ treeData })}
           />

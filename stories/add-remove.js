@@ -72,6 +72,8 @@ export default class App extends Component {
       <div>
         <div style={{ height: 300 }}>
           <SortableTree
+            dragDnDType="example"
+            dropDnDType={["example"]}
             treeData={this.state.treeData}
             onChange={treeData => this.setState({ treeData })}
             generateNodeProps={({ node, path }) => ({

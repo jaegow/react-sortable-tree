@@ -208,13 +208,14 @@ export interface ReactSortableTreeProps extends ThemeTreeProps {
     searchFocusOffset?: number;
     onlyExpandSearchedNodes?: boolean;
     searchFinishCallback?(matches: NodeData[]): void;
-    dndType?: string;
     shouldCopyOnOutsideDrop?: boolean | ((data: ShouldCopyData) => boolean);
     className?: string;
     isVirtualized?: boolean;
     lazyRenderItemsCount?: number;
     ignoreScaffold?: boolean;
     customRowHeight?: boolean;
+    dragDnDType: string;
+    dropDnDType: string[];
 }
 
 declare const SortableTree: React.ComponentType<ReactSortableTreeProps>;

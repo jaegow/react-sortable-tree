@@ -77,7 +77,8 @@ class App extends Component {
               <SortableTree
                 treeData={this.state.treeData}
                 onChange={treeData => this.setState({ treeData })}
-                dndType={trashAreaType}
+                dragDnDType={trashAreaType}
+                dropDnDType={[trashAreaType]}
               />
             </div>
           </TrashAreaComponent>

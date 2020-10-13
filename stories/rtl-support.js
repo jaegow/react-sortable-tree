@@ -29,6 +29,8 @@ export default class App extends Component {
     return (
       <div style={{ height: 300, width: 600 }}>
         <SortableTree
+          dragDnDType="example"
+          dropDnDType={["example"]}
           rowDirection="rtl"
           treeData={this.state.treeData}
           onChange={treeData => this.setState({ treeData })}

@@ -31,6 +31,8 @@ export default class App extends Component {
         Open your console to see callback parameter info
         <div style={{ height: 300 }}>
           <SortableTree
+            dragDnDType="example"
+            dropDnDType={["example"]}
             treeData={this.state.treeData}
             onChange={treeData => this.setState({ treeData })}
             // Need to set getNodeKey to get meaningful ids in paths

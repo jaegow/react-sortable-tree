@@ -25,6 +25,8 @@ export default class App extends Component {
                     treeData={this.state.treeData}
                     onChange={treeData => this.setState({ treeData })}
                     className="rst__linear"
+                    dragDnDType="example"
+                    dropDnDType={["example"]}
                 />
             </div>
         );

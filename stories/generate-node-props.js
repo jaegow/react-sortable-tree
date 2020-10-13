@@ -30,6 +30,8 @@ export default class App extends Component {
             treeData={this.state.treeData}
             onChange={treeData => this.setState({ treeData })}
             getNodeKey={getNodeKey}
+            dragDnDType="example"
+            dropDnDType={["example"]}
             generateNodeProps={({ node, path }) => {
               const rootLevelIndex =
                 this.state.treeData.reduce((acc, n, index) => {

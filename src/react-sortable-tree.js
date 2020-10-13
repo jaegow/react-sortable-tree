@@ -81,7 +81,8 @@ class ReactSortableTree extends Component {
     super(props);
 
     const {
-      dndType,
+      dragDnDType,
+      dropDnDType,
       nodeContentRenderer,
       treeNodeRenderer,
       isVirtualized,
@@ -96,7 +97,8 @@ class ReactSortableTree extends Component {
     // Wrapping classes for use with react-dnd
     this.treeId = `rst__${treeIdCounter}`;
     treeIdCounter += 1;
-    this.dndType = dndType || this.treeId;
+    this.dragDnDType = dragDnDType;
+    this.dropDnDType = dropDnDType;
     this.itemsOnPage = lazyRenderItemsCount;
     this.ignoreScaffold = ignoreScaffold;
     this.customRowHeight = customRowHeight;
@@ -930,7 +932,11 @@ ReactSortableTree.propTypes = {
   // Called after children nodes collapsed or expanded.
   onVisibilityToggle: PropTypes.func,
 
-  dndType: PropTypes.string,
+  // type which return dragging item from this tree
+  dragDnDType: PropTypes.string.isRequired,
+
+  // allow types for this drop area tree
+  dropDnDType: PropTypes.arrayOf(PropTypes.string).isRequired,
 
   // Called to track between dropped and dragging
   onDragStateChanged: PropTypes.func,
@@ -947,7 +953,6 @@ ReactSortableTree.defaultProps = {
   canDrop: null,
   canNodeHaveChildren: () => true,
   className: '',
-  dndType: null,
   generateNodeProps: null,
   getNodeKey: defaultGetNodeKey,
   innerStyle: {},

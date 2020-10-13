@@ -72,7 +72,8 @@ class App extends Component {
             <SortableTree
               treeData={this.state.treeData}
               onChange={treeData => this.setState({ treeData })}
-              dndType={externalNodeType}
+              dragDnDType={externalNodeType}
+              dropDnDType={[externalNodeType]}
             />
           </div>
           <YourExternalNodeComponent node={{ title: 'Baby Rabbit' }} />← drag

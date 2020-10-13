@@ -50,6 +50,8 @@ export default class App extends Component {
     return (
       <div style={{ height: 300 }}>
         <SortableTree
+          dragDnDType="example"
+          dropDnDType={["example"]}
           theme={FileExplorerTheme}
           treeData={this.state.treeData}
           onChange={treeData => this.setState({ treeData })}
