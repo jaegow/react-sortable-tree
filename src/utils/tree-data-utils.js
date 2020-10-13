@@ -81,7 +81,7 @@ export function getDescendantCount({ node, ignoreCollapsed = true }) {
  * @param {Object} args.node - A tree node
  * @param {Object=} args.parentNode - The parent node of `node`
  * @param {number} args.currentIndex - The treeIndex of `node`
- * @param {number} args.maxLength - Max Count of Nodes
+ * @param {number=} args.maxLength - Max Count of Nodes
  * @param {number[]|string[]} args.path - Array of keys leading up to node to be changed
  * @param {number[]} args.lowerSiblingCounts - An array containing the count of siblings beneath the
  *                                             previous nodes in this path
@@ -97,7 +97,7 @@ function walkDescendants({
   node,
   parentNode = null,
   currentIndex,
-  maxLength,
+  maxLength = 0,
   path = [],
   lowerSiblingCounts = [],
 }) {
@@ -141,6 +141,7 @@ function walkDescendants({
         callback,
         getNodeKey,
         ignoreCollapsed,
+        maxLength,
         node: node.children[i],
         parentNode: isPseudoRoot ? null : node,
         currentIndex: childIndex + 1,
@@ -321,7 +322,7 @@ export function getVisibleNodeInfoAtIndex({
  * @param {!Object[]} treeData - Tree data
  * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
  * @param {function} callback - Function to call on each node
- * @param {number} maxLength - Max Count of Nodes
+ * @param {number=} maxLength - Max Count of Nodes
  * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
  *
  * @return void
@@ -946,7 +947,7 @@ export function insertNode({
  * @param {!Object[]} treeData - Tree data
  * @param {!function} getNodeKey - Function to get the key from the nodeData and tree index
  * @param {boolean=} ignoreCollapsed - Ignore children of nodes without `expanded` set to `true`
- * @param {number} maxLength - Max Count of Nodes
+ * @param {number=} maxLength - Max Count of Nodes
  * @return {{
  *      node: Object,
  *      path: []string|[]number,

@@ -1,7 +1,7 @@
 import { FullTree, TreePath, TreeItem, TreeIndex, SearchData, NodeData, TreeNode, FlatDataItem } from '..';
 
 export type GetNodeKeyFunction = (data: TreeIndex & TreeNode) => string | number;
-export type WalkAndMapFunctionParameters = FullTree & {getNodeKey: GetNodeKeyFunction, callback: Function, ignoreCollapsed?: boolean};
+export type WalkAndMapFunctionParameters = FullTree & {getNodeKey: GetNodeKeyFunction, callback: Function, ignoreCollapsed?: boolean, maxLength?: number};
 
 export function getDescendantCount(data: TreeNode & {ignoreCollapsed?: boolean}): number;
 export function getVisibleNodeCount(data: FullTree): number;

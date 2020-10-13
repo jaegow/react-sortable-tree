@@ -505,6 +505,7 @@ class ReactSortableTree extends Component {
 
     walk({
       treeData: instanceProps.treeData,
+      maxLength: state.lazyRenderItemsCount,
       getNodeKey: props.getNodeKey,
       callback: ({ node, path, lowerSiblingCounts, treeIndex }) => {
         // If the node has children defined by a function, and is either expanded
