@@ -27,6 +27,7 @@ export interface GetTreeItemChildren {
 export type GetTreeItemChildrenFn = (data: GetTreeItemChildren) => void;
 
 export interface TreeItem {
+    id: number;
     title?: React.ReactNode;
     subtitle?: React.ReactNode;
     expanded?: boolean;

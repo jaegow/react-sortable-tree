@@ -806,7 +806,8 @@ ReactSortableTree.propTypes = {
   }).isRequired,
 
   // Tree data in the following format:
-  // [{title: 'main', subtitle: 'sub'}, { title: 'value2', expanded: true, children: [{ title: 'value3') }] }]
+  // [{id: 1, title: 'main', subtitle: 'sub'}, { id: 2, title: 'value2', expanded: true, children: [{ id: 3, title: 'value3') }] }]
+  // `id` is unique
   // `title` is the primary label for the node
   // `subtitle` is a secondary label for the node
   // `expanded` shows children of the node if true, or hides them if false. Defaults to false.
