@@ -16,27 +16,28 @@ import { ConnectDragSource, ConnectDragPreview, ConnectDropTarget } from 'react-
 export * from './utils/tree-data-utils';
 export * from './utils/default-handlers';
 
-export interface GetTreeItemChildren {
-    done: (children: TreeItem[]) => void;
-    node: TreeItem;
+export interface GetTreeItemChildren<T> {
+    done: (children: TreeItem<T>[]) => void;
+    node: TreeItem<T>;
     path: NumberOrStringArray;
     lowerSiblingCounts: number[];
     treeIndex: number;
 }
 
-export type GetTreeItemChildrenFn = (data: GetTreeItemChildren) => void;
+export type GetTreeItemChildrenFn<T> = (data: GetTreeItemChildren<T>) => void;
 
-export interface TreeItem {
+export interface TreeItem<T> {
     id: number;
+    itemRef: T,
     title?: React.ReactNode;
     subtitle?: React.ReactNode;
     expanded?: boolean;
-    children?: TreeItem[] | GetTreeItemChildrenFn;
+    children?: TreeItem<T>[] | GetTreeItemChildrenFn<T>;
     [x: string]: any;
 }
 
-export interface TreeNode {
-    node: TreeItem;
+export interface TreeNode<T> {
+    node: TreeItem<T>;
 }
 
 export interface TreePath {
@@ -47,35 +48,35 @@ export interface TreeIndex {
     treeIndex: number;
 }
 
-export interface FullTree {
-    treeData: TreeItem[];
+export interface FullTree<T> {
+    treeData: TreeItem<T>[];
 }
 
-export interface NodeData extends TreeNode, TreePath, TreeIndex {}
+export interface NodeData<T> extends TreeNode<T>, TreePath, TreeIndex {}
 
-export interface FlatDataItem extends TreeNode, TreePath {
+export interface FlatDataItem<T> extends TreeNode<T>, TreePath {
     lowerSiblingCounts: number[];
-    parentNode: TreeItem;
+    parentNode: TreeItem<T>;
 }
 
-export interface SearchData extends NodeData {
+export interface SearchData<T> extends NodeData<T> {
     searchQuery: any;
 }
 
-export interface ExtendedNodeData extends NodeData {
-    parentNode: TreeItem;
+export interface ExtendedNodeData<T> extends NodeData<T> {
+    parentNode: TreeItem<T>;
     lowerSiblingCounts: number[];
     isSearchMatch: boolean;
     isSearchFocus: boolean;
 }
 
-export interface OnVisibilityToggleData extends FullTree, TreeNode {
+export interface OnVisibilityToggleData<T> extends FullTree<T>, TreeNode<T> {
     expanded: boolean;
 }
 
-export interface OnDragStateChangedData {
+export interface OnDragStateChangedData<T> {
     isDragging: boolean;
-    draggedNode: TreeItem;
+    draggedNode: TreeItem<T>;
 }
 
 interface PreviousAndNextLocation {
@@ -85,37 +86,37 @@ interface PreviousAndNextLocation {
     nextPath: NumberOrStringArray;
 }
 
-export interface OnDragPreviousAndNextLocation extends PreviousAndNextLocation {
-    prevParent: TreeItem | null;
-    nextParent: TreeItem | null;
+export interface OnDragPreviousAndNextLocation<T> extends PreviousAndNextLocation {
+    prevParent: TreeItem<T> | null;
+    nextParent: TreeItem<T> | null;
 }
 
-export interface ShouldCopyData {
-    node: TreeNode;
+export interface ShouldCopyData<T> {
+    node: TreeNode<T>;
     prevPath: NumberOrStringArray;
     prevTreeIndex: number;
 }
 
-export interface OnMovePreviousAndNextLocation extends PreviousAndNextLocation {
-    nextParentNode: TreeItem | null;
+export interface OnMovePreviousAndNextLocation<T> extends PreviousAndNextLocation {
+    nextParentNode: TreeItem<T> | null;
 }
 
-export type NodeRenderer = React.ComponentType<NodeRendererProps>;
+export type NodeRenderer<T> = React.ComponentType<NodeRendererProps<T>>;
 
-export interface NodeRendererProps {
-    node: TreeItem;
+export interface NodeRendererProps<T> {
+    node: TreeItem<T>;
     path: NumberOrStringArray;
     treeIndex: number;
     isSearchMatch: boolean;
     isSearchFocus: boolean;
     canDrag: boolean;
     scaffoldBlockPxWidth: number;
-    toggleChildrenVisibility?(data: NodeData): void;
+    toggleChildrenVisibility?(data: NodeData<T>): void;
     buttons?: JSX.Element[];
     className?: string;
     style?: React.CSSProperties;
-    title?: (data: NodeData) => JSX.Element | JSX.Element;
-    subtitle?: (data: NodeData) => JSX.Element | JSX.Element;
+    title?: (data: NodeData<T>) => JSX.Element | JSX.Element;
+    subtitle?: (data: NodeData<T>) => JSX.Element | JSX.Element;
     icons?: JSX.Element[];
     lowerSiblingCounts: number[];
     swapDepth?: number;
@@ -127,29 +128,29 @@ export interface NodeRendererProps {
 
     connectDragPreview: ConnectDragPreview;
     connectDragSource: ConnectDragSource;
-    parentNode?: TreeItem;
+    parentNode?: TreeItem<T>;
     startDrag: any;
     endDrag: any;
     isDragging: boolean;
     didDrop: boolean;
-    draggedNode?: TreeItem;
+    draggedNode?: TreeItem<T>;
     isOver: boolean;
     canDrop?: boolean;
 }
 
-export type PlaceholderRenderer = React.ComponentType<PlaceholderRendererProps>;
+export type PlaceholderRenderer<T> = React.ComponentType<PlaceholderRendererProps<T>>;
 
-export interface PlaceholderRendererProps {
+export interface PlaceholderRendererProps<T> {
     isOver: boolean;
     canDrop: boolean;
-    draggedNode: TreeItem;
+    draggedNode: TreeItem<T>;
 }
 
 type NumberOrStringArray = Array<string | number>;
 
-export type TreeRenderer = React.ComponentType<TreeRendererProps>;
+export type TreeRenderer<T> = React.ComponentType<TreeRendererProps<T>>;
 
-export interface TreeRendererProps {
+export interface TreeRendererProps<T> {
     treeIndex: number;
     treeId: string;
     swapFrom?: number;
@@ -167,49 +168,49 @@ export interface TreeRendererProps {
     connectDropTarget: ConnectDropTarget;
     isOver: boolean;
     canDrop?: boolean;
-    draggedNode?: TreeItem;
+    draggedNode?: TreeItem<T>;
 
     // used in dndManager
-    getPrevRow: () => FlatDataItem | null;
-    node: TreeItem;
+    getPrevRow: () => FlatDataItem<T> | null;
+    node: TreeItem<T>;
     path: NumberOrStringArray;
 }
 
-interface ThemeTreeProps {
+interface ThemeTreeProps<T> {
     style?: React.CSSProperties;
     innerStyle?: React.CSSProperties;
     reactVirtualizedListProps?: Partial<ListProps>;
     scaffoldBlockPxWidth?: number;
     slideRegionSize?: number;
-    rowHeight?: ((info: NodeData & Index) => number) | number;
-    nodeContentRenderer?: NodeRenderer;
-    placeholderRenderer?: PlaceholderRenderer;
+    rowHeight?: ((info: NodeData<T> & Index) => number) | number;
+    nodeContentRenderer?: NodeRenderer<T>;
+    placeholderRenderer?: PlaceholderRenderer<T>;
 }
 
-export interface ThemeProps extends ThemeTreeProps {
-    treeNodeRenderer?: TreeRenderer;
+export interface ThemeProps<T> extends ThemeTreeProps<T> {
+    treeNodeRenderer?: TreeRenderer<T>;
 }
 
-export interface ReactSortableTreeProps extends ThemeTreeProps {
-    treeData: TreeItem[];
-    onChange(treeData: TreeItem[]): void;
-    getNodeKey?(data: TreeNode & TreeIndex): string | number;
-    generateNodeProps?(data: ExtendedNodeData): { [index: string]: any };
-    onMoveNode?(data: NodeData & FullTree & OnMovePreviousAndNextLocation): void;
-    onVisibilityToggle?(data: OnVisibilityToggleData): void;
-    onDragStateChanged?(data: OnDragStateChangedData): void;
+export interface ReactSortableTreeProps<T> extends ThemeTreeProps<T> {
+    treeData: TreeItem<T>[];
+    onChange(treeData: TreeItem<T>[]): void;
+    getNodeKey?(data: TreeNode<T> & TreeIndex): string | number;
+    generateNodeProps?(data: ExtendedNodeData<T>): { [index: string]: any };
+    onMoveNode?(data: NodeData<T> & FullTree<T> & OnMovePreviousAndNextLocation<T>): void;
+    onVisibilityToggle?(data: OnVisibilityToggleData<T>): void;
+    onDragStateChanged?(data: OnDragStateChangedData<T>): void;
     maxDepth?: number;
     rowDirection?: 'ltr' | 'rtl';
-    canDrag?: ((data: ExtendedNodeData) => boolean) | boolean;
-    canDrop?(data: OnDragPreviousAndNextLocation & NodeData): boolean;
-    canNodeHaveChildren?(node: TreeItem): boolean;
-    theme?: ThemeProps;
-    searchMethod?(data: SearchData): boolean;
+    canDrag?: ((data: ExtendedNodeData<T>) => boolean) | boolean;
+    canDrop?(data: OnDragPreviousAndNextLocation<T> & NodeData<T>): boolean;
+    canNodeHaveChildren?(node: TreeItem<T>): boolean;
+    theme?: ThemeProps<T>;
+    searchMethod?(data: SearchData<T>): boolean;
     searchQuery?: string | any;
     searchFocusOffset?: number;
     onlyExpandSearchedNodes?: boolean;
-    searchFinishCallback?(matches: NodeData[]): void;
-    shouldCopyOnOutsideDrop?: boolean | ((data: ShouldCopyData) => boolean);
+    searchFinishCallback?(matches: NodeData<T>[]): void;
+    shouldCopyOnOutsideDrop?: boolean | ((data: ShouldCopyData<T>) => boolean);
     className?: string;
     isVirtualized?: boolean;
     lazyRenderItemsCount?: number;
@@ -219,8 +220,9 @@ export interface ReactSortableTreeProps extends ThemeTreeProps {
     dropDnDType: string[];
 }
 
-declare const SortableTree: React.ComponentType<ReactSortableTreeProps>;
 
-export const SortableTreeWithoutDndContext: React.ComponentType<ReactSortableTreeProps>;
+declare function SortableTree<T>(props: ReactSortableTreeProps<T>): React.ReactElement
+
+export function SortableTreeWithoutDndContext<T>(props: ReactSortableTreeProps<T>): React.ReactElement;
 
 export default SortableTree;
