@@ -599,7 +599,7 @@ class ReactSortableTree extends Component {
     return (
       <TreeNodeRenderer
         style={style}
-        key={nodeKey}
+        key={node.id || nodeKey}
         listIndex={listIndex}
         getPrevRow={getPrevRow}
         lowerSiblingCounts={lowerSiblingCounts}
