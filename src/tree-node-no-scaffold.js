@@ -55,21 +55,18 @@ class TreeNodeNoScaffold extends Component {
                   })
               )}
             </div> :
-            <>
+            <InView
+                root={window.document}
+                rootMargin="500px"
+                onChange={(inView) => {
+                  if (inView && !self.state.isVisible) {
+                    self.setState({
+                      isVisible: true
+                    });
+                  }
+                }}>
               {loaderRenderer(listIndex)}
-              <InView
-                  root={window.document}
-                  rootMargin="500px"
-                  onChange={(inView) => {
-                    if (inView && !self.state.isVisible) {
-                      self.setState({
-                        isVisible: true
-                      });
-                    }
-                  }}>
-                <div />
-              </InView>
-            </>
+            </InView>
         }
       </div>
     );
