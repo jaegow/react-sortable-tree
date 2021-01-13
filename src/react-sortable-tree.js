@@ -12,7 +12,6 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { polyfill } from 'react-lifecycles-compat';
 import { AutoSizer, List } from 'react-virtualized';
 import 'react-virtualized/styles.css';
-import { InView } from 'react-intersection-observer';
 import NodeRendererDefault from './node-renderer-default';
 import PlaceholderRendererDefault from './placeholder-renderer-default';
 import './react-sortable-tree.css';
@@ -86,9 +85,9 @@ class ReactSortableTree extends Component {
       nodeContentRenderer,
       treeNodeRenderer,
       isVirtualized,
-      lazyRenderItemsCount,
       ignoreScaffold,
       customRowHeight,
+      loaderRenderer,
       slideRegionSize,
     } = mergeTheme(props);
 
@@ -99,7 +98,7 @@ class ReactSortableTree extends Component {
     treeIdCounter += 1;
     this.dragDnDType = dragDnDType;
     this.dropDnDType = dropDnDType;
-    this.itemsOnPage = lazyRenderItemsCount;
+    this.loaderRenderer = loaderRenderer;
     this.ignoreScaffold = ignoreScaffold;
     this.customRowHeight = customRowHeight;
     this.nodeContentRenderer = this.dndManager.wrapSource(nodeContentRenderer);
@@ -125,7 +124,6 @@ class ReactSortableTree extends Component {
       searchMatches: [],
       searchFocusTreeIndex: null,
       dragging: false,
-      lazyRenderItemsCount: Math.max(lazyRenderItemsCount, 0),
       // props that need to be used in gDSFP or static functions will be stored here
       instanceProps: {
         treeData: [],
@@ -231,8 +229,7 @@ class ReactSortableTree extends Component {
     return memoizedGetFlatDataFromTree({
       ignoreCollapsed: true,
       getNodeKey: this.props.getNodeKey,
-      treeData,
-      maxLength: this.state.lazyRenderItemsCount
+      treeData
     });
   }
 
@@ -512,7 +509,6 @@ class ReactSortableTree extends Component {
 
     walk({
       treeData: instanceProps.treeData,
-      maxLength: state.lazyRenderItemsCount,
       getNodeKey: props.getNodeKey,
       callback: ({ node, path, lowerSiblingCounts, treeIndex }) => {
         // If the node has children defined by a function, and is either expanded
@@ -606,6 +602,7 @@ class ReactSortableTree extends Component {
         swapFrom={swapFrom}
         swapLength={swapLength}
         swapDepth={swapDepth}
+        loaderRenderer={this.loaderRenderer}
         {...sharedProps}
       >
         <NodeContentRenderer
@@ -616,8 +613,8 @@ class ReactSortableTree extends Component {
           toggleChildrenVisibility={this.toggleChildrenVisibility}
           {...sharedProps}
           {...nodeProps}
-        />
-      </TreeNodeRenderer>
+      />
+    </TreeNodeRenderer>
     );
   }
 
@@ -685,7 +682,7 @@ class ReactSortableTree extends Component {
         : {};
 
     let containerStyle = style;
-    let list = [];
+    let list;
     if (rows.length < 1) {
       const Placeholder = this.treePlaceholderRenderer;
       const PlaceholderContent = placeholderRenderer;
@@ -749,44 +746,27 @@ class ReactSortableTree extends Component {
       );
     } else {
       // Render list without react-virtualized
-      rows.forEach((row, index) => {
-        list.push(this.renderRow(row, {
-          listIndex: index,
-          style: this.customRowHeight ? {} : {
-            height:
-                typeof rowHeight !== 'function'
-                    ? rowHeight
-                    : rowHeight({
-                      index,
-                      treeIndex: index,
-                      node: row.node,
-                      path: row.path,
-                    }),
-          },
-          getPrevRow: () => rows[index - 1] || null,
-          matchKeys,
-          swapFrom,
-          swapDepth: draggedDepth,
-          swapLength,
-        }))
-        const maxItemsCount = this.state.lazyRenderItemsCount;
-        const canRender = maxItemsCount ? index >= maxItemsCount - 4 : false;
-        if (canRender) {
-          const key = Math.floor(new Date().getTime() * Math.random());
-          list.push(<InView key={key}>
-            {({ inView, ref }) => {
-              if (inView) {
-                setTimeout(() => {
-                  this.setState({
-                    lazyRenderItemsCount: maxItemsCount + this.itemsOnPage
-                  });
-                }, 10)
-              }
-              return <div ref={ref}/>
-            }}
-          </InView>);
-        }
-      });
+      list = rows.map((row, index) =>
+          this.renderRow(row, {
+            listIndex: index,
+            style: {
+              height:
+                  typeof rowHeight !== 'function'
+                      ? rowHeight
+                      : rowHeight({
+                        index,
+                        treeIndex: index,
+                        node: row.node,
+                        path: row.path,
+                      }),
+            },
+            getPrevRow: () => rows[index - 1] || null,
+            matchKeys,
+            swapFrom,
+            swapDepth: draggedDepth,
+            swapLength,
+          })
+      );
     }
 
     return (
@@ -866,10 +846,6 @@ ReactSortableTree.propTypes = {
   // NOTE: Auto-scrolling while dragging, and scrolling to the `searchFocusOffset` will be disabled.
   isVirtualized: PropTypes.bool,
 
-  // Count of lazy rendering
-  // Set less to 0 or undefined for disabled
-  lazyRenderItemsCount: PropTypes.number,
-
   // Ignore all scaffolds => no left lines for display tree structure
   ignoreScaffold: PropTypes.bool,
 
@@ -882,6 +858,9 @@ ReactSortableTree.propTypes = {
   // This is an advanced option for complete customization of the appearance.
   // It is best to copy the component in `node-renderer-default.js` to use as a base, and customize as needed.
   nodeContentRenderer: PropTypes.func,
+
+  // Loader renderer
+  loaderRenderer: PropTypes.func,
 
   // Override the default component for rendering an empty tree
   // This is an advanced option for complete customization of the appearance.
@@ -958,12 +937,12 @@ ReactSortableTree.defaultProps = {
   getNodeKey: defaultGetNodeKey,
   innerStyle: {},
   isVirtualized: true,
-  lazyRenderItemsCount: 0,
   ignoreScaffold: false,
   customRowHeight: false,
   maxDepth: null,
   treeNodeRenderer: null,
   nodeContentRenderer: null,
+  loaderRenderer: null,
   onMoveNode: () => {},
   onVisibilityToggle: () => {},
   placeholderRenderer: null,

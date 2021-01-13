@@ -24,6 +24,7 @@ class TreeNode extends Component {
       node, // Delete from otherProps
       path, // Delete from otherProps
       rowDirection,
+      loaderRenderer,
       ...otherProps
     } = this.props;
 

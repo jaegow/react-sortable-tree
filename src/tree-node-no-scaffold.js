@@ -1,10 +1,19 @@
 import React, { Component, Children, cloneElement } from 'react';
 import {observer} from "mobx-react";
 import PropTypes from 'prop-types';
+import {InView} from "react-intersection-observer";
 import classnames from './utils/classnames';
 import './tree-node.css';
 
 class TreeNodeNoScaffold extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isVisible: false
+    };
+  }
+  
   render() {
     const {
       children,
@@ -24,25 +33,44 @@ class TreeNodeNoScaffold extends Component {
       node, // Delete from otherProps
       path, // Delete from otherProps
       rowDirection,
+      loaderRenderer,
       ...otherProps
     } = this.props;
 
     const rowDirectionClass = rowDirection === 'rtl' ? 'rst__rtl' : null;
+    const self = this;
 
     return connectDropTarget(
       <div
         {...otherProps}
         className={classnames('rst__node', rowDirectionClass)}
       >
-        <div className="rst__nodeContent">
-          {Children.map(children, child =>
-            cloneElement(child, {
-              isOver,
-              canDrop,
-              draggedNode,
-            })
-          )}
-        </div>
+        {this.state.isVisible || loaderRenderer === null ?
+            <div className="rst__nodeContent">
+              {Children.map(children, child =>
+                  cloneElement(child, {
+                    isOver,
+                    canDrop,
+                    draggedNode,
+                  })
+              )}
+            </div> :
+            <>
+              {loaderRenderer(listIndex)}
+              <InView
+                  root={window.document}
+                  rootMargin="500px"
+                  onChange={(inView) => {
+                    if (inView && !self.state.isVisible) {
+                      self.setState({
+                        isVisible: true
+                      });
+                    }
+                  }}>
+                <div />
+              </InView>
+            </>
+        }
       </div>
     );
   }
@@ -55,9 +83,11 @@ TreeNodeNoScaffold.defaultProps = {
   canDrop: false,
   draggedNode: null,
   rowDirection: 'ltr',
+  loaderRenderer: null
 };
 
 TreeNodeNoScaffold.propTypes = {
+  loaderRenderer: PropTypes.func,
   treeIndex: PropTypes.number.isRequired,
   treeId: PropTypes.string.isRequired,
   swapFrom: PropTypes.number,

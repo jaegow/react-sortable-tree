@@ -3,7 +3,6 @@
 import { storiesOf } from '@storybook/react';
 import React from 'react';
 import AddRemoveExample from './add-remove';
-import LazyRenderExample from './worldee/lazy-render';
 import LazyNoScaffoldExample from './worldee/lazy-no-scaffold';
 import BarebonesExample from './barebones';
 import BarebonesExampleNoContext from './barebones-no-context';
@@ -47,5 +46,4 @@ storiesOf('Advanced', module)
   ));
 
 storiesOf('Worldee', module)
-    .add('Lazy Render', () => <LazyRenderExample />)
     .add('Lazy No Scaffold', () => <LazyNoScaffoldExample />)

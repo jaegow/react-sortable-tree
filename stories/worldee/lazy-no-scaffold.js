@@ -19,13 +19,15 @@ export default class App extends Component {
     render() {
         return (
             <SortableTree
-                lazyRenderItemsCount={40}
+                loaderRenderer={() => <div style={{height: "40px", width: "100%"}}>LOADER</div>}
                 isVirtualized={false}
                 treeData={this.state.treeData}
                 onChange={treeData => this.setState({ treeData })}
                 className="rst__linear"
                 dragDnDType="example"
+                document={window.document}
                 dropDnDType={["example"]}
+                maxDepth={1}
                 customRowHeight
                 ignoreScaffold
             />

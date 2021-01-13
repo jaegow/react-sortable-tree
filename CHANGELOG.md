@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.9] (2021-13-01)
+* Change behaviour of lazy rendering
+
 ## [1.0.14] (2020-10-09)
 * Added support for lazy rendering
 

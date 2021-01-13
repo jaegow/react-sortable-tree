@@ -212,8 +212,8 @@ export interface ReactSortableTreeProps<T> extends ThemeTreeProps<T> {
     searchFinishCallback?(matches: NodeData<T>[]): void;
     shouldCopyOnOutsideDrop?: boolean | ((data: ShouldCopyData<T>) => boolean);
     className?: string;
+    loaderRenderer?: (index: number) => React.ReactNode;
     isVirtualized?: boolean;
-    lazyRenderItemsCount?: number;
     ignoreScaffold?: boolean;
     customRowHeight?: boolean;
     dragDnDType: string;
