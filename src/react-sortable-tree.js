@@ -239,7 +239,7 @@ class ReactSortableTree extends Component {
     // it means that the drag was canceled or the dragSource dropped
     // elsewhere, and we should reset the state of this tree
     if (!monitor.isDragging() && this.state.draggingTreeData) {
-      this.endDrag();
+      setTimeout(() => {this.endDrag()});
     }
   }
 
