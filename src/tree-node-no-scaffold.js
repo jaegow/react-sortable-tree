@@ -56,7 +56,7 @@ class TreeNodeNoScaffold extends Component {
               )}
             </div> :
             <InView
-                root={window.document}
+                root={null}
                 rootMargin="500px"
                 onChange={(inView) => {
                   if (inView && !self.state.isVisible) {
