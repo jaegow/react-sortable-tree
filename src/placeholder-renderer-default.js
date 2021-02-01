@@ -1,5 +1,4 @@
 import React from 'react';
-import {observer} from "mobx-react";
 import PropTypes from 'prop-types';
 import classnames from './utils/classnames';
 import './placeholder-renderer-default.css';
@@ -24,4 +23,4 @@ PlaceholderRendererDefault.propTypes = {
   canDrop: PropTypes.bool,
 };
 
-export default observer(PlaceholderRendererDefault);
+export default PlaceholderRendererDefault;

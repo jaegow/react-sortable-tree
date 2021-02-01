@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {observer} from "mobx-react";
 import PropTypes from 'prop-types';
 import { isDescendant } from './utils/tree-data-utils';
 import classnames from './utils/classnames';
@@ -231,4 +230,4 @@ NodeRendererDefault.propTypes = {
   rowDirection: PropTypes.string,
 };
 
-export default observer(NodeRendererDefault);
+export default NodeRendererDefault;

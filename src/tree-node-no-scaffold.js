@@ -1,5 +1,4 @@
 import React, { Component, Children, cloneElement } from 'react';
-import {observer} from "mobx-react";
 import PropTypes from 'prop-types';
 import {InView} from "react-intersection-observer";
 import classnames from './utils/classnames';
@@ -113,4 +112,4 @@ TreeNodeNoScaffold.propTypes = {
   rowDirection: PropTypes.string,
 };
 
-export default observer(TreeNodeNoScaffold);
+export default TreeNodeNoScaffold;

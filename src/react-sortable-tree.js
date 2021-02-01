@@ -3,7 +3,6 @@ import withScrolling, {
   createScrollingComponent,
   createVerticalStrength,
 } from 'frontend-collective-react-dnd-scrollzone';
-import {observer} from "mobx-react";
 import isEqual from 'lodash.isequal';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -779,7 +778,6 @@ class ReactSortableTree extends Component {
     );
   }
 }
-observer(ReactSortableTree);
 ReactSortableTree.propTypes = {
   dragDropManager: PropTypes.shape({
     getMonitor: PropTypes.func,
@@ -964,7 +962,7 @@ ReactSortableTree.defaultProps = {
 
 polyfill(ReactSortableTree);
 
-const SortableTreeWithoutDndContext = observer(props => (
+const SortableTreeWithoutDndContext = props => (
   <DndContext.Consumer>
     {({ dragDropManager }) =>
       dragDropManager === undefined ? null : (
@@ -972,7 +970,7 @@ const SortableTreeWithoutDndContext = observer(props => (
       )
     }
   </DndContext.Consumer>
-));
+);
 
 const SortableTree = props => (
   <DndProvider backend={HTML5Backend}>
@@ -985,4 +983,4 @@ const SortableTree = props => (
 // see: https://github.com/gaearon/react-dnd/issues/186
 export { SortableTreeWithoutDndContext };
 
-export default observer(SortableTree);
+export default SortableTree;

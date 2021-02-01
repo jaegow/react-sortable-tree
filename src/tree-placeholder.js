@@ -1,5 +1,4 @@
 import React, { Children, cloneElement, Component } from 'react';
-import {observer} from "mobx-react";
 import PropTypes from 'prop-types';
 
 class TreePlaceholder extends Component {
@@ -40,4 +39,4 @@ TreePlaceholder.propTypes = {
   drop: PropTypes.func.isRequired,
 };
 
-export default observer(TreePlaceholder);
+export default TreePlaceholder;
