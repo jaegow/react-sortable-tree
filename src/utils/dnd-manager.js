@@ -56,6 +56,13 @@ export default class DndManager {
     return this.treeRef.props.maxDepth;
   }
 
+  resetLastMove() {
+    this.lastMove = {
+      draggingId: null,
+      hoveredId: null
+    }
+  }
+
   getTargetDepth(dropTargetProps, monitor, component) {
     let dropTargetDepth = 0;
 
@@ -237,8 +244,7 @@ export default class DndManager {
           targetDepth !== dropTargetProps.path.length - 1;
 
         if (draggedNode.id === dropTargetProps.node.id) {
-          this.lastMove.draggingId = null;
-          this.lastMove.hoveredId = null;
+          this.resetLastMove();
         }
 
         if (!needsRedraw) {

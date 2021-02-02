@@ -449,6 +449,7 @@ class ReactSortableTree extends Component {
     // Drop was cancelled
     if (!dropResult) {
       resetTree();
+      this.dndManager.resetLastMove();
     } else if (dropResult.treeId !== this.treeId) {
       // The node was dropped in an external drop target or tree
       const { node, path, treeIndex } = dropResult;

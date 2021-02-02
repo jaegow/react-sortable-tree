@@ -1,0 +1,472 @@
+/* dnd  */
+.draggable {
+    opacity: 1;
+    cursor: grab;
+}
+
+.draggable.dragging {
+    opacity: 0.4;
+}
+
+.draggable.dragging-sortable {
+    opacity: 0.5;
+}
+
+.drop-area {
+    display: block;
+    padding: 5px;
+    overflow: hidden;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    background: transparent;
+}
+.drop-area-active {
+    border: 1px dashed transparent;
+    color: transparent;
+}
+
+.disable_selection {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -khtml-user-select: none;
+}
+/* dnd_sortable_tree */
+.empty-day-placeholder {
+    padding: 2px 0;
+}
+
+.rstRowWrapper {
+    padding: 0;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.rst__rtl.rstRowWrapper {
+    padding: 0;
+}
+
+.rstRow {
+    height: 100%;
+    white-space: nowrap;
+    display: flex;
+}
+.rstRow > * {
+    box-sizing: border-box;
+}
+
+/**
+ * The outline of where the element will go if dropped, displayed while dragging
+ */
+.rstRowLandingPad {
+    background: red!important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+.rstRowLandingPad > * {
+    opacity: 0.7 !important;
+}
+.rstRowLandingPad::before {
+    background-color: #f4f8fb;
+    border: 1px dashed #B0AFAF;
+    border-radius: 5px;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+}
+.rstRowLandingPad.rstRowDayLanding::before {
+    display: none;
+}
+.rstRowLandingPad.rstRowDayLanding::before {
+    left: 44px;
+    bottom: 56px;
+}
+.rstRowLandingPad.rstRowLandingWithOffset::before {
+    left: 30px;
+}
+
+.rstRowCancelPad {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+.rstRowCancelPad > * {
+    opacity: 0 !important;
+}
+.rstRowCancelPad::before {
+    display: none;
+}
+
+/**
+ * Nodes matching the search conditions are highlighted
+ */
+.rstRowSearchMatch {
+    outline: solid 3px #0080ff;
+}
+
+/**
+ * The node that matches the search conditions and is currently focused
+ */
+.rstRowSearchFocus {
+    outline: solid 3px #fc6421;
+}
+
+.rstRowContents,
+.rstRowLabel,
+.rstRowToolbar,
+.rstMoveHandle,
+.rstToolbarButton {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.rstRowContents {
+    position: relative;
+    height: 100%;
+    border: solid #bbb 1px;
+    border-left: none;
+    box-shadow: 0 2px 2px -2px;
+    padding: 0 5px 0 10px;
+    border-radius: 2px;
+    min-width: 230px;
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+}
+
+.rst__rtl.rstRrowContents {
+    border-right: none;
+    border-left: solid #bbb 1px;
+    padding: 0 10px 0 5px;
+}
+
+.rstRowContentsDragDisabled {
+    border-left: solid #bbb 1px;
+}
+
+.rst__rtl.rstRowContentsDragDisabled {
+    border-right: solid #bbb 1px;
+    border-left: solid #bbb 1px;
+}
+
+.rstRowLabel {
+    flex: 0 1 auto;
+    padding-right: 20px;
+}
+.rstRtl.rstRowLabel {
+    padding-left: 20px;
+    padding-right: inherit;
+}
+
+.rstRowToolbar {
+    flex: 0 1 auto;
+    display: flex;
+}
+
+.rstMoveHandle,
+.rstLoadingHandle {
+    height: 100%;
+    width: 44px;
+    background: #d9d9d9
+    url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MiIgaGVpZ2h0PSI0MiI+PGcgc3Ryb2tlPSIjRkZGIiBzdHJva2Utd2lkdGg9IjIuOSIgPjxwYXRoIGQ9Ik0xNCAxNS43aDE0LjQiLz48cGF0aCBkPSJNMTQgMjEuNGgxNC40Ii8+PHBhdGggZD0iTTE0IDI3LjFoMTQuNCIvPjwvZz4KPC9zdmc+')
+    no-repeat center;
+    border: solid #aaa 1px;
+    box-shadow: 0 2px 2px -2px;
+    cursor: move;
+    border-radius: 1px;
+    z-index: 1;
+}
+
+.rstLoadingHandle {
+    cursor: default;
+    background: #d9d9d9;
+}
+
+@keyframes pointFade {
+    0%,
+    19.999%,
+    100% {
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+}
+
+.rst¨LoadingCircle {
+    width: 80%;
+    height: 80%;
+    margin: 10%;
+    position: relative;
+}
+
+.rstLoadingCirclePoint {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.rst__rtl.rstLoadingCirclePoint {
+    right: 0;
+    left: initial;
+}
+
+.rstLoadingCirclePoint::before {
+    content: '';
+    display: block;
+    margin: 0 auto;
+    width: 11%;
+    height: 30%;
+    background-color: #fff;
+    border-radius: 30%;
+    animation: pointFade 800ms infinite ease-in-out both;
+}
+.rstLoadingCirclePoint:nth-of-type(1) {
+    transform: rotate(0deg);
+}
+.rstLoadingCirclePoint:nth-of-type(7) {
+    transform: rotate(180deg);
+}
+.rstLoadingCirclePoint:nth-of-type(1)::before,
+.rstLoadingCirclePoint:nth-of-type(7)::before {
+    animation-delay: -800ms;
+}
+.rstLoadingCirclePoint:nth-of-type(2) {
+    transform: rotate(30deg);
+}
+.rstLoadingCirclePoint:nth-of-type(8) {
+    transform: rotate(210deg);
+}
+.rstLoadingCirclePoint:nth-of-type(2)::before,
+.rstLoadingCirclePoint:nth-of-type(8)::before {
+    animation-delay: -666ms;
+}
+.rstLoadingCirclePoint:nth-of-type(3) {
+    transform: rotate(60deg);
+}
+.rstLoadingCirclePoint:nth-of-type(9) {
+    transform: rotate(240deg);
+}
+.rstLoadingCirclePoint:nth-of-type(3)::before,
+.rstLoadingCirclePoint:nth-of-type(9)::before {
+    animation-delay: -533ms;
+}
+.rstLoadingCirclePoint:nth-of-type(4) {
+    transform: rotate(90deg);
+}
+.rstLoadingCirclePoint:nth-of-type(10) {
+    transform: rotate(270deg);
+}
+.rstLoadingCirclePoint:nth-of-type(4)::before,
+.rstLoadingCirclePoint:nth-of-type(10)::before {
+    animation-delay: -400ms;
+}
+.rstLoadingCirclePoint:nth-of-type(5) {
+    transform: rotate(120deg);
+}
+.rstLoadingCirclePoint:nth-of-type(11) {
+    transform: rotate(300deg);
+}
+.rstLoadingCirclePoint:nth-of-type(5)::before,
+.rstLoadingCirclePoint:nth-of-type(11)::before {
+    animation-delay: -266ms;
+}
+.rstLoadingCirclePoint:nth-of-type(6) {
+    transform: rotate(150deg);
+}
+.rstLoadingCirclePoint:nth-of-type(12) {
+    transform: rotate(330deg);
+}
+.rstLoadingCirclePoint:nth-of-type(6)::before,
+.rstLoadingCirclePoint:nth-of-type(12)::before {
+    animation-delay: -133ms;
+}
+.rstLoadingCirclePoint:nth-of-type(7) {
+    transform: rotate(180deg);
+}
+.rstLoadingCirclePoint:nth-of-type(13) {
+    transform: rotate(360deg);
+}
+.rstLoadingCirclePoint:nth-of-type(7)::before,
+.rstLoadingCirclePoint:nth-of-type(13)::before {
+    animation-delay: 0ms;
+}
+
+.rstRowTitle {
+    font-weight: bold;
+}
+
+.rstRowTitleWithSubtitle {
+    font-size: 85%;
+    display: block;
+    height: 0.8rem;
+}
+
+.rstRowSubtitle {
+    font-size: 70%;
+    line-height: 1;
+}
+
+.rstCollapseButton,
+.rstExpandButton {
+    appearance: none;
+    border: none;
+    position: absolute;
+    border-radius: 100%;
+    box-shadow: 0 0 0 1px #000;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+.rst__rtl.rstCollapseButton,
+.rst__rtl.rstExpandButton {
+    transform: translate(50%, -50%);
+}
+.rstCollapseButton:focus,
+.rstExpandButton:focus {
+    outline: none;
+    box-shadow: 0 0 0 1px #000, 0 0 1px 3px #83bef9;
+}
+.rstCollapseButton:hover:not(:active),
+.rstExpandButton:hover:not(:active) {
+    background-size: 24px;
+    height: 20px;
+    width: 20px;
+}
+
+.rstNoLeft .rstLineBlock {
+    display: none !important;
+}
+.rstNoLeft .rstNodeContent {
+    width: 100%;
+    left: 0 !important;
+}
+.rstNoLeft .rstNode {
+//transition: height 100ms;
+}
+
+.rstLinear >.rstNode {
+    height: 100% !important;
+    z-index: 0;
+}
+.rst__linear >.rstNode .rstNodeContent {
+    position: relative;
+}
+.custom-placeholder {
+   height: auto;
+   max-width: 100%;
+   padding-left: 15px;
+}
+.custom-placeholder:before {
+    border: 1px dashed #B0AFAF;
+    border-radius: 5px;
+}
+
+.custom-placeholder .rstPlaceholder {
+    height: auto!important;
+    max-width: 100%!important;
+    padding-left: 15px!important;
+}
+.custom-placeholder .rstPlaceholder:before{
+    border: 1px dashed #B0AFAF!important;
+    border-radius: 5px!important
+}
+
+.rstPlaceholderLandingPad::before,
+.rstPlaceholderCancelPad::before {
+    background-color: transparent !important;
+}
+.rstPlaceholderCancelPad::before {
+    background-color: transparent !important;
+}
+.rstTree .rstPlaceholderLandingPad,
+.rstTree .rstPlaceholderCancelPad * {
+    opacity: 1 !important;
+}
+
+/* Highlight line for pointing to dragged row destination
+   ========================================================================== */
+/**
+ * +--+--+
+ * |  |  |
+ * |  |  |
+ * |  |  |
+ * +--+--+
+ */
+.rstTree .rstHighlightLineVertical::before {
+    background-color: #01D9CF;
+    width: 6px;
+    margin-left: -8px;
+    left: 50%;
+}
+.rstTree .rstHighlightLineVertical::after {
+    display: none;
+}
+
+/**
+ * +-----+
+ * |     |
+ * |  +--+
+ * |  |  |
+ * +--+--+
+ */
+.rstTree .rstHighlightTopLeftCorner::before {
+    border-top: solid 6px #01D9CF;
+    border-left: solid 6px #01D9CF;
+    border-radius: 5px 0 0 0;
+    box-sizing: border-box;
+    height: calc(50% + 4px);
+    top: 50%;
+    margin-top: -4px;
+    right: 0;
+    width: calc(50% + 8px);
+}
+.rstTree .rst__rtl.rstHighlightTopLeftCorner::before {
+    border-right: solid 6px #01D9CF;
+}
+
+/**
+ * +--+--+
+ * |  |  |
+ * |  |  |
+ * |  +->|
+ * +-----+
+ */
+.rstTree .rstHighlightBottomLeftCorner::before {
+    border-bottom: solid 6px #01D9CF;
+    border-left: solid 6px #01D9CF;
+    border-radius: 0 0 0 5px;
+    height: calc(100% + 2px);
+    top: 0;
+    right: 12px;
+    width: calc(50% - 4px);
+}
+
+.rstTree .rst__rtl.rstHighlightBottomLeftCorner::before {
+    border-right: solid 6px #01D9CF;
+}
+
+.rstTree .rstHighlightBottomLeftCorner::after {
+    margin-top: -12px;
+    border-left: 12px solid #01D9CF;
+    border-radius: 5px;
+}
+
+.rstTree .rst__rtl.rstHighlightBottomLeftCorner::after {
+    border-right: 12px solid #01D9CF;
+}

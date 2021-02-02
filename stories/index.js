@@ -4,6 +4,7 @@ import { storiesOf } from '@storybook/react';
 import React from 'react';
 import AddRemoveExample from './add-remove';
 import LazyNoScaffoldExample from './worldee/lazy-no-scaffold';
+import DifferentHeights from './worldee/diffrent-heights';
 import BarebonesExample from './barebones';
 import BarebonesExampleNoContext from './barebones-no-context';
 import CallbacksExample from './callbacks';
@@ -47,3 +48,4 @@ storiesOf('Advanced', module)
 
 storiesOf('Worldee', module)
     .add('Lazy No Scaffold', () => <LazyNoScaffoldExample />)
+    .add('Different heights', () => <DifferentHeights />)
