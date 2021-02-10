@@ -1,11 +1,44 @@
 import React, { Component, Children, cloneElement } from 'react';
-import PropTypes from 'prop-types';
 import { InView } from 'react-intersection-observer';
 import classnames from './utils/classnames';
 import './tree-node.css';
 
-class TreeNodeNoScaffold extends Component {
-  constructor(props) {
+type OwnProps = {
+    loaderRenderer?: (...args: any[]) => any;
+    treeIndex: number;
+    treeId: string;
+    swapFrom?: number;
+    swapDepth?: number;
+    swapLength?: number;
+    scaffoldBlockPxWidth: number;
+    lowerSiblingCounts: number[];
+    listIndex: number;
+    connectDropTarget: (...args: any[]) => any;
+    isOver: boolean;
+    canDrop?: boolean;
+    draggedNode?: {};
+    getPrevRow: (...args: any[]) => any;
+    node: {};
+    path: (string | number)[];
+    rowDirection?: string;
+};
+
+type State = any;
+
+type Props = OwnProps & typeof TreeNodeNoScaffold.defaultProps;
+
+class TreeNodeNoScaffold extends Component<Props, State> {
+static defaultProps = {
+    swapFrom: null,
+    swapDepth: null,
+    swapLength: null,
+    canDrop: false,
+    draggedNode: null,
+    rowDirection: 'ltr',
+    loaderRenderer: null,
+};
+
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -33,18 +66,22 @@ class TreeNodeNoScaffold extends Component {
       path, // Delete from otherProps
       rowDirection,
       loaderRenderer,
+      // @ts-expect-error ts-migrate(2700) FIXME: Rest types may only be created from object types.
       ...otherProps
     } = this.props;
 
     const rowDirectionClass = rowDirection === 'rtl' ? 'rst__rtl' : null;
     const self = this;
 
+    // @ts-expect-error ts-migrate(2349) FIXME: This expression is not callable.
     return connectDropTarget(
+      // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
       <div
         {...otherProps}
         className={classnames('rst__node', rowDirectionClass)}
       >
         {this.state.isVisible || loaderRenderer === null ? (
+          // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <div className="rst__nodeContent">
             {Children.map(children, (child) =>
               cloneElement(child, {
@@ -55,6 +92,7 @@ class TreeNodeNoScaffold extends Component {
             )}
           </div>
         ) : (
+          // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
           <InView
             root={null}
             rootMargin="500px"
@@ -66,6 +104,7 @@ class TreeNodeNoScaffold extends Component {
               }
             }}
           >
+            {/* @ts-expect-error ts-migrate(2349) FIXME: This expression is not callable. */}
             {loaderRenderer(listIndex)}
           </InView>
         )}
@@ -73,45 +112,5 @@ class TreeNodeNoScaffold extends Component {
     );
   }
 }
-
-TreeNodeNoScaffold.defaultProps = {
-  swapFrom: null,
-  swapDepth: null,
-  swapLength: null,
-  canDrop: false,
-  draggedNode: null,
-  rowDirection: 'ltr',
-  loaderRenderer: null,
-};
-
-TreeNodeNoScaffold.propTypes = {
-  loaderRenderer: PropTypes.func,
-  treeIndex: PropTypes.number.isRequired,
-  treeId: PropTypes.string.isRequired,
-  swapFrom: PropTypes.number,
-  swapDepth: PropTypes.number,
-  swapLength: PropTypes.number,
-  scaffoldBlockPxWidth: PropTypes.number.isRequired,
-  lowerSiblingCounts: PropTypes.arrayOf(PropTypes.number).isRequired,
-
-  listIndex: PropTypes.number.isRequired,
-  children: PropTypes.node.isRequired,
-
-  // Drop target
-  connectDropTarget: PropTypes.func.isRequired,
-  isOver: PropTypes.bool.isRequired,
-  canDrop: PropTypes.bool,
-  draggedNode: PropTypes.shape({}),
-
-  // used in dndManager
-  getPrevRow: PropTypes.func.isRequired,
-  node: PropTypes.shape({}).isRequired,
-  path: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-  ).isRequired,
-
-  // rtl support
-  rowDirection: PropTypes.string,
-};
 
 export default TreeNodeNoScaffold;

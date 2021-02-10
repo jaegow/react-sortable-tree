@@ -16,8 +16,12 @@ import {
   toggleExpandedForAll,
 } from './tree-data-utils';
 
-const keyFromTreeIndex = ({ treeIndex }) => treeIndex;
-const keyFromKey = ({ node }) => node.key;
+const keyFromTreeIndex = ({
+  treeIndex
+}: any) => treeIndex;
+const keyFromKey = ({
+  node
+}: any) => node.key;
 
 describe('getVisibleNodeCount', () => {
   it('should handle flat data', () => {
@@ -306,6 +310,7 @@ describe('getNodeAtPath', () => {
 
   it('should handle flat data', () => {
     expect(
+      // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
       getNodeAtPath({
         treeData: [{ key: 0 }],
         path: [0],
@@ -313,6 +318,7 @@ describe('getNodeAtPath', () => {
       }).node.key
     ).toEqual(0);
     expect(
+      // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
       getNodeAtPath({
         treeData: [{ key: 0 }, { key: 1 }],
         path: [1],
@@ -343,6 +349,7 @@ describe('getNodeAtPath', () => {
       getNodeKey: keyFromTreeIndex,
     });
 
+    // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
     expect(result.node.key).toEqual(6);
   });
 
@@ -370,6 +377,7 @@ describe('getNodeAtPath', () => {
       getNodeKey: keyFromKey,
     });
 
+    // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
     expect(result.node.key).toEqual(5);
   });
 
@@ -398,6 +406,7 @@ describe('getNodeAtPath', () => {
       getNodeKey: keyFromTreeIndex,
     });
 
+    // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
     expect(result.node.key).toEqual(5);
   });
 
@@ -561,6 +570,7 @@ describe('getFlatDataFromTree', () => {
         treeIndex: 0,
       },
       {
+        // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
         node: treeData[0].children[0],
         parentNode: treeData[0],
         path: [0, 1],
@@ -568,6 +578,7 @@ describe('getFlatDataFromTree', () => {
         treeIndex: 1,
       },
       {
+        // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
         node: treeData[0].children[1],
         parentNode: treeData[0],
         path: [0, 4],
@@ -575,7 +586,9 @@ describe('getFlatDataFromTree', () => {
         treeIndex: 2,
       },
       {
+        // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
         node: treeData[0].children[1].children[0],
+        // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
         parentNode: treeData[0].children[1],
         path: [0, 4, 5],
         lowerSiblingCounts: [1, 0, 0],
@@ -627,6 +640,7 @@ describe('getFlatDataFromTree', () => {
         treeIndex: 0,
       },
       {
+        // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
         node: treeData[0].children[0],
         parentNode: treeData[0],
         path: [0, 1],
@@ -634,20 +648,25 @@ describe('getFlatDataFromTree', () => {
         treeIndex: 1,
       },
       {
+        // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
         node: treeData[0].children[0].children[0],
+        // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
         parentNode: treeData[0].children[0],
         path: [0, 1, 2],
         lowerSiblingCounts: [1, 1, 1],
         treeIndex: 2,
       },
       {
+        // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
         node: treeData[0].children[0].children[1],
+        // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
         parentNode: treeData[0].children[0],
         path: [0, 1, 3],
         lowerSiblingCounts: [1, 1, 0],
         treeIndex: 3,
       },
       {
+        // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
         node: treeData[0].children[1],
         parentNode: treeData[0],
         path: [0, 4],
@@ -655,7 +674,9 @@ describe('getFlatDataFromTree', () => {
         treeIndex: 4,
       },
       {
+        // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
         node: treeData[0].children[1].children[0],
+        // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
         parentNode: treeData[0].children[1],
         path: [0, 4, 5],
         lowerSiblingCounts: [1, 0, 0],
@@ -781,7 +802,9 @@ describe('changeNodeAtPath', () => {
         { key: 6 },
       ],
       path: [0, 2, 5],
-      newNode: ({ node }) => ({
+      newNode: ({
+        node
+      }: any) => ({
         ...node,
         children: [{ food: 'pancake' }],
       }),
@@ -798,7 +821,9 @@ describe('changeNodeAtPath', () => {
       changeNodeAtPath({
         treeData: [],
         path: [],
-        newNode: ({ node }) => ({
+        newNode: ({
+          node
+        }: any) => ({
           ...node,
           children: [...node.children, { key: 1 }],
         }),
@@ -810,7 +835,9 @@ describe('changeNodeAtPath', () => {
       changeNodeAtPath({
         treeData: [{ key: 0 }],
         path: [],
-        newNode: ({ node }) => ({
+        newNode: ({
+          node
+        }: any) => ({
           ...node,
           children: [...node.children, { key: 1 }],
         }),
@@ -1590,7 +1617,10 @@ describe('walk', () => {
       treeData: [{}, { children: [{}] }, {}],
       ignoreCollapsed: false,
       getNodeKey: keyFromTreeIndex,
-      callback: ({ treeIndex, path }) => {
+      callback: ({
+        treeIndex,
+        path
+      }: any) => {
         expect(treeIndex).toEqual(counter);
         expect(path).toEqual(paths[treeIndex]);
         counter += 1;
@@ -1612,7 +1642,9 @@ describe('walk', () => {
       walk({
         treeData,
         getNodeKey: keyFromTreeIndex,
-        callback: ({ node }) => {
+        callback: ({
+          node
+        }: any) => {
           if (node.key === 2) {
             // Cut walk short with false
             return false;
@@ -1632,12 +1664,14 @@ describe('walk', () => {
       { key: 1, children: [{ key: 12, children: [{ key: 3 }] }, { key: 4 }] },
       { key: 5 },
     ];
-    const results = [];
+    const results: any = [];
     walk({
       treeData,
       getNodeKey: keyFromTreeIndex,
       ignoreCollapsed: false,
-      callback: ({ parentNode }) => {
+      callback: ({
+        parentNode
+      }: any) => {
         results.push(parentNode ? parentNode.key : null);
       },
     });
@@ -1650,11 +1684,14 @@ describe('getTreeFromFlatData', () => {
   const rootKey = -1;
   const argDefaults = {
     rootKey,
-    getKey: (node) => node.key,
-    getParentKey: (node) => node.parentKey,
+    getKey: (node: any) => node.key,
+    getParentKey: (node: any) => node.parentKey,
   };
 
-  const checkFunction = ({ flatData, expected }) => {
+  const checkFunction = ({
+    flatData,
+    expected
+  }: any) => {
     expect(
       getTreeFromFlatData({
         ...argDefaults,
@@ -1787,8 +1824,8 @@ describe('map', () => {
     getNodeKey,
     callback,
     ignoreCollapsed,
-    expected,
-  }) => {
+    expected
+  }: any) => {
     expect(
       map({
         treeData,
@@ -1804,19 +1841,25 @@ describe('map', () => {
       {
         treeData: [],
         getNodeKey: keyFromKey,
-        callback: ({ node }) => node,
+        callback: ({
+          node
+        }: any) => node,
         expected: [],
       },
       {
         treeData: null,
         getNodeKey: keyFromKey,
-        callback: ({ node }) => node,
+        callback: ({
+          node
+        }: any) => node,
         expected: [],
       },
       {
         treeData: undefined,
         getNodeKey: keyFromKey,
-        callback: ({ node }) => node,
+        callback: ({
+          node
+        }: any) => node,
         expected: [],
       },
     ].forEach(checkFunction);
@@ -1826,19 +1869,25 @@ describe('map', () => {
     [
       {
         getNodeKey: keyFromKey,
-        callback: ({ node }) => node,
+        callback: ({
+          node
+        }: any) => node,
         treeData: [{ key: 1 }, { key: 2 }],
         expected: [{ key: 1 }, { key: 2 }],
       },
       {
         getNodeKey: keyFromKey,
-        callback: ({ node }) => node,
+        callback: ({
+          node
+        }: any) => node,
         treeData: [{ key: 1, children: [{ key: 2 }] }],
         expected: [{ key: 1, children: [{ key: 2 }] }],
       },
       {
         getNodeKey: keyFromKey,
-        callback: ({ node }) => node,
+        callback: ({
+          node
+        }: any) => node,
         treeData: [
           {
             key: 1,
@@ -1861,7 +1910,9 @@ describe('map', () => {
     [
       {
         getNodeKey: keyFromKey,
-        callback: ({ node }) =>
+        callback: ({
+          node
+        }: any) =>
           node.key === 1 ? { ...node, children: [] } : node,
         treeData: [
           {
@@ -1878,7 +1929,10 @@ describe('map', () => {
   it('can get parents', () => {
     checkFunction({
       getNodeKey: keyFromKey,
-      callback: ({ node, parentNode }) => ({
+      callback: ({
+        node,
+        parentNode
+      }: any) => ({
         ...node,
         parentKey: parentNode ? parentNode.key : null,
       }),
@@ -1929,12 +1983,14 @@ describe('map', () => {
     [
       {
         getNodeKey: keyFromKey,
-        callback: ({ node }) =>
+        callback: ({
+          node
+        }: any) =>
           !node.children
             ? node
             : {
                 ...node,
-                children: node.children.sort((a, b) => a.key - b.key),
+                children: node.children.sort((a: any, b: any) => a.key - b.key),
               },
         treeData: [
           {
@@ -1974,7 +2030,9 @@ describe('map', () => {
     [
       {
         getNodeKey: keyFromKey,
-        callback: ({ node }) => ({ ...node, expanded: true }),
+        callback: ({
+          node
+        }: any) => ({ ...node, expanded: true }),
         ignoreCollapsed: false,
         treeData: [
           {
@@ -2030,11 +2088,13 @@ describe('isDescendant', () => {
   it('should work at the base', () => {
     expect(isDescendant(treeData[0], treeData[0])).toEqual(false);
     expect(isDescendant(treeData[0], treeData[1])).toEqual(false);
+    // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
     expect(isDescendant(treeData[0], treeData[0].children[1])).toEqual(true);
   });
 
   it('should work deeper in the tree', () => {
     expect(
+      // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
       isDescendant(treeData[0].children[0], treeData[0].children[0].children[1])
     ).toEqual(true);
   });
@@ -2061,6 +2121,7 @@ describe('getDepth', () => {
   });
 
   it('should work deeper in the tree', () => {
+    // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
     expect(getDepth(treeData[0].children[0])).toEqual(1);
   });
 });
@@ -2100,7 +2161,10 @@ describe('getDescendantCount', () => {
 describe('find', () => {
   const commonArgs = {
     searchQuery: 42,
-    searchMethod: ({ node, searchQuery }) => node.key === searchQuery,
+    searchMethod: ({
+      node,
+      searchQuery
+    }: any) => node.key === searchQuery,
     expandAllMatchPaths: false,
     expandFocusMatchPaths: true,
     getNodeKey: keyFromKey,

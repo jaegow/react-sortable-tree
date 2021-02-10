@@ -1,10 +1,17 @@
 import { DragSource as dragSource, DropTarget as dropTarget } from 'react-dnd';
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'reac... Remove this comment to see the full error message
 import { findDOMNode } from 'react-dom';
 import { getDepth } from './tree-data-utils';
 import { memoizedInsertNode } from './memoized-tree-data-utils';
 
 export default class DndManager {
-  constructor(treeRef) {
+  lastMove: any;
+
+  rafId: any;
+
+  treeRef: any;
+
+  constructor(treeRef: any) {
     this.treeRef = treeRef;
     this.lastMove = {
       draggingId: null,
@@ -63,7 +70,7 @@ export default class DndManager {
     };
   }
 
-  getTargetDepth(dropTargetProps, monitor, component) {
+  getTargetDepth(dropTargetProps: any, monitor: any, component: any) {
     let dropTargetDepth = 0;
 
     const rowAbove = dropTargetProps.getPrevRow();
@@ -127,7 +134,7 @@ export default class DndManager {
     return targetDepth;
   }
 
-  canDrop(dropTargetProps, monitor) {
+  canDrop(dropTargetProps: any, monitor: any) {
     if (!monitor.isOver()) {
       return false;
     }
@@ -171,9 +178,9 @@ export default class DndManager {
     return true;
   }
 
-  wrapSource(el) {
+  wrapSource(el: any) {
     const nodeDragSource = {
-      beginDrag: (props) => {
+      beginDrag: (props: any) => {
         this.startDrag(props);
 
         return {
@@ -185,11 +192,11 @@ export default class DndManager {
         };
       },
 
-      endDrag: (props, monitor) => {
+      endDrag: (props: any, monitor: any) => {
         this.endDrag(monitor.getDropResult());
       },
 
-      isDragging: (props, monitor) => {
+      isDragging: (props: any, monitor: any) => {
         const dropTargetNode = monitor.getItem().node;
         const draggedNode = props.node;
 
@@ -197,7 +204,7 @@ export default class DndManager {
       },
     };
 
-    function nodeDragSourcePropInjection(connect, monitor) {
+    function nodeDragSourcePropInjection(connect: any, monitor: any) {
       return {
         connectDragSource: connect.dragSource(),
         connectDragPreview: connect.dragPreview(),
@@ -213,9 +220,9 @@ export default class DndManager {
     )(el);
   }
 
-  wrapTarget(el) {
+  wrapTarget(el: any) {
     const nodeDropTarget = {
-      drop: (dropTargetProps, monitor, component) => {
+      drop: (dropTargetProps: any, monitor: any, component: any) => {
         const result = {
           node: monitor.getItem().node,
           path: monitor.getItem().path,
@@ -230,7 +237,7 @@ export default class DndManager {
         return result;
       },
 
-      hover: (dropTargetProps, monitor, component) => {
+      hover: (dropTargetProps: any, monitor: any, component: any) => {
         const targetDepth = this.getTargetDepth(
           dropTargetProps,
           monitor,
@@ -278,7 +285,7 @@ export default class DndManager {
       canDrop: this.canDrop.bind(this),
     };
 
-    function nodeDropTargetPropInjection(connect, monitor) {
+    function nodeDropTargetPropInjection(connect: any, monitor: any) {
       const dragged = monitor.getItem();
       return {
         connectDropTarget: connect.dropTarget(),
@@ -295,9 +302,9 @@ export default class DndManager {
     )(el);
   }
 
-  wrapPlaceholder(el) {
+  wrapPlaceholder(el: any) {
     const placeholderDropTarget = {
-      drop: (dropTargetProps, monitor) => {
+      drop: (dropTargetProps: any, monitor: any) => {
         const { node, path, treeIndex } = monitor.getItem();
         const result = {
           node,
@@ -314,7 +321,7 @@ export default class DndManager {
       },
     };
 
-    function placeholderPropInjection(connect, monitor) {
+    function placeholderPropInjection(connect: any, monitor: any) {
       const dragged = monitor.getItem();
       return {
         connectDropTarget: connect.dropTarget(),

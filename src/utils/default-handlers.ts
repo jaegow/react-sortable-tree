@@ -1,9 +1,11 @@
-export function defaultGetNodeKey({ treeIndex }) {
+export function defaultGetNodeKey({
+  treeIndex
+}: any) {
   return treeIndex;
 }
 
 // Cheap hack to get the text of a react object
-function getReactElementText(parent) {
+function getReactElementText(parent: any) {
   if (typeof parent === 'string') {
     return parent;
   }
@@ -24,12 +26,12 @@ function getReactElementText(parent) {
   }
 
   return parent.props.children
-    .map((child) => getReactElementText(child))
+    .map((child: any) => getReactElementText(child))
     .join('');
 }
 
 // Search for a query string inside a node property
-function stringSearch(key, searchQuery, node, path, treeIndex) {
+function stringSearch(key: any, searchQuery: any, node: any, path: any, treeIndex: any) {
   if (typeof node[key] === 'function') {
     // Search within text after calling its function to generate the text
     return (
@@ -45,7 +47,12 @@ function stringSearch(key, searchQuery, node, path, treeIndex) {
   return node[key] && String(node[key]).indexOf(searchQuery) > -1;
 }
 
-export function defaultSearchMethod({ node, path, treeIndex, searchQuery }) {
+export function defaultSearchMethod({
+  node,
+  path,
+  treeIndex,
+  searchQuery
+}: any) {
   return (
     stringSearch('title', searchQuery, node, path, treeIndex) ||
     stringSearch('subtitle', searchQuery, node, path, treeIndex)

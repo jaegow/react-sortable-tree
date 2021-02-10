@@ -9,7 +9,9 @@ describe('insertNode', () => {
       depth: 0,
       minimumTreeIndex: 0,
       newNode: {},
-      getNodeKey: ({ treeIndex }) => treeIndex,
+      getNodeKey: ({
+        treeIndex
+      }: any) => treeIndex,
     };
 
     let firstCall = insertNode(params);
