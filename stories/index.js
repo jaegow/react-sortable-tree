@@ -32,7 +32,7 @@ storiesOf('Basics', module)
   .add('Search', () => <SearchExample />)
   .add('Themes', () => <ThemesExample />)
   .add('Callbacks', () => <CallbacksExample />)
-  .add('Row direction support', () => <RowDirectionExample />)
+  .add('Row direction support', () => <RowDirectionExample />);
 
 storiesOf('Advanced', module)
   .add('Drag from external source', () => <ExternalNodeExample />)
@@ -47,5 +47,5 @@ storiesOf('Advanced', module)
   ));
 
 storiesOf('Worldee', module)
-    .add('Lazy No Scaffold', () => <LazyNoScaffoldExample />)
-    .add('Different heights', () => <DifferentHeights />)
+  .add('Lazy No Scaffold', () => <LazyNoScaffoldExample />)
+  .add('Different heights', () => <DifferentHeights />);

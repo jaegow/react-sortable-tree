@@ -76,7 +76,7 @@ class App extends Component {
             <div style={{ height: 250 }}>
               <SortableTree
                 treeData={this.state.treeData}
-                onChange={treeData => this.setState({ treeData })}
+                onChange={(treeData) => this.setState({ treeData })}
                 dragDnDType={trashAreaType}
                 dropDnDType={[trashAreaType]}
               />

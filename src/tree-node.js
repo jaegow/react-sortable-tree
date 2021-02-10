@@ -151,7 +151,7 @@ class TreeNode extends Component {
         {scaffold}
 
         <div className="rst__nodeContent" style={style}>
-          {Children.map(children, child =>
+          {Children.map(children, (child) =>
             cloneElement(child, {
               isOver,
               canDrop,

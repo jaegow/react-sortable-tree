@@ -12,7 +12,7 @@ class TreePlaceholder extends Component {
     } = this.props;
     return connectDropTarget(
       <div>
-        {Children.map(children, child =>
+        {Children.map(children, (child) =>
           cloneElement(child, {
             ...otherProps,
           })

@@ -24,7 +24,7 @@ function getReactElementText(parent) {
   }
 
   return parent.props.children
-    .map(child => getReactElementText(child))
+    .map((child) => getReactElementText(child))
     .join('');
 }
 

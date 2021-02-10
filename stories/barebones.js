@@ -19,9 +19,9 @@ export default class App extends Component {
       <div style={{ height: 300 }}>
         <SortableTree
           dragDnDType="example"
-          dropDnDType={["example"]}
+          dropDnDType={['example']}
           treeData={this.state.treeData}
-          onChange={treeData => this.setState({ treeData })}
+          onChange={(treeData) => this.setState({ treeData })}
         />
       </div>
     );

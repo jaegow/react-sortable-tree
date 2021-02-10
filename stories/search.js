@@ -81,7 +81,7 @@ export default class App extends Component {
         <h2>Find the needle!</h2>
         <form
           style={{ display: 'inline-block' }}
-          onSubmit={event => {
+          onSubmit={(event) => {
             event.preventDefault();
           }}
         >
@@ -91,7 +91,7 @@ export default class App extends Component {
             placeholder="Search..."
             style={{ fontSize: '1rem' }}
             value={searchString}
-            onChange={event =>
+            onChange={(event) =>
               this.setState({ searchString: event.target.value })
             }
           />
@@ -123,7 +123,7 @@ export default class App extends Component {
         <div style={{ height: 300 }}>
           <SortableTree
             treeData={this.state.treeData}
-            onChange={treeData => this.setState({ treeData })}
+            onChange={(treeData) => this.setState({ treeData })}
             //
             // Custom comparison for matching during search.
             // This is optional, and defaults to a case sensitive search of
@@ -134,7 +134,7 @@ export default class App extends Component {
             // The query string used in the search. This is required for searching.
             searchQuery={searchString}
             dragDnDType="example"
-            dropDnDType={["example"]}
+            dropDnDType={['example']}
             //
             // When matches are found, this property lets you highlight a specific
             // match and scroll to it. This is optional.
@@ -145,7 +145,7 @@ export default class App extends Component {
             // Here I just use it to note how many matches were found.
             // This is optional, but without it, the only thing searches
             // do natively is outline the matching nodes.
-            searchFinishCallback={matches =>
+            searchFinishCallback={(matches) =>
               this.setState({
                 searchFoundCount: matches.length,
                 searchFocusIndex:

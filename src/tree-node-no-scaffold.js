@@ -1,6 +1,6 @@
 import React, { Component, Children, cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import {InView} from "react-intersection-observer";
+import { InView } from 'react-intersection-observer';
 import classnames from './utils/classnames';
 import './tree-node.css';
 
@@ -9,10 +9,10 @@ class TreeNodeNoScaffold extends Component {
     super(props);
 
     this.state = {
-      isVisible: false
+      isVisible: false,
     };
   }
-  
+
   render() {
     const {
       children,
@@ -44,29 +44,31 @@ class TreeNodeNoScaffold extends Component {
         {...otherProps}
         className={classnames('rst__node', rowDirectionClass)}
       >
-        {this.state.isVisible || loaderRenderer === null ?
-            <div className="rst__nodeContent">
-              {Children.map(children, child =>
-                  cloneElement(child, {
-                    isOver,
-                    canDrop,
-                    draggedNode,
-                  })
-              )}
-            </div> :
-            <InView
-                root={null}
-                rootMargin="500px"
-                onChange={(inView) => {
-                  if (inView && !self.state.isVisible) {
-                    self.setState({
-                      isVisible: true
-                    });
-                  }
-                }}>
-              {loaderRenderer(listIndex)}
-            </InView>
-        }
+        {this.state.isVisible || loaderRenderer === null ? (
+          <div className="rst__nodeContent">
+            {Children.map(children, (child) =>
+              cloneElement(child, {
+                isOver,
+                canDrop,
+                draggedNode,
+              })
+            )}
+          </div>
+        ) : (
+          <InView
+            root={null}
+            rootMargin="500px"
+            onChange={(inView) => {
+              if (inView && !self.state.isVisible) {
+                self.setState({
+                  isVisible: true,
+                });
+              }
+            }}
+          >
+            {loaderRenderer(listIndex)}
+          </InView>
+        )}
       </div>
     );
   }
@@ -79,7 +81,7 @@ TreeNodeNoScaffold.defaultProps = {
   canDrop: false,
   draggedNode: null,
   rowDirection: 'ltr',
-  loaderRenderer: null
+  loaderRenderer: null,
 };
 
 TreeNodeNoScaffold.propTypes = {
@@ -105,7 +107,7 @@ TreeNodeNoScaffold.propTypes = {
   getPrevRow: PropTypes.func.isRequired,
   node: PropTypes.shape({}).isRequired,
   path: PropTypes.arrayOf(
-      PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   ).isRequired,
 
   // rtl support

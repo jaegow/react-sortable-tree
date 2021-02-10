@@ -17,7 +17,7 @@ const externalNodeSpec = {
   // This needs to return an object with a property `node` in it.
   // Object rest spread is recommended to avoid side effects of
   // referencing the same object in different trees.
-  beginDrag: componentProps => ({ node: { ...componentProps.node } }),
+  beginDrag: (componentProps) => ({ node: { ...componentProps.node } }),
 };
 const externalNodeCollect = (connect /* , monitor */) => ({
   connectDragSource: connect.dragSource(),
@@ -71,7 +71,7 @@ class App extends Component {
           <div style={{ height: 300 }}>
             <SortableTree
               treeData={this.state.treeData}
-              onChange={treeData => this.setState({ treeData })}
+              onChange={(treeData) => this.setState({ treeData })}
               dragDnDType={externalNodeType}
               dropDnDType={[externalNodeType]}
             />

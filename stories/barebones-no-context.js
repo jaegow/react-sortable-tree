@@ -22,9 +22,9 @@ export default class App extends Component {
         <DndProvider backend={HTML5Backend}>
           <SortableTree
             treeData={this.state.treeData}
-            onChange={treeData => this.setState({ treeData })}
+            onChange={(treeData) => this.setState({ treeData })}
             dragDnDType="example"
-            dropDnDType={["example"]}
+            dropDnDType={['example']}
           />
         </DndProvider>
       </div>

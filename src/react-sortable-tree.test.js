@@ -17,9 +17,17 @@ import DefaultNodeRenderer from './node-renderer-default';
 describe('<SortableTree />', () => {
   it('should render tree correctly', () => {
     const tree = renderer
-      .create(<SortableTree treeData={[{}]} onChange={() => {}} dragDnDType="example" dropDnDType={["example"]} />, {
-        createNodeMock: () => ({}),
-      })
+      .create(
+        <SortableTree
+          treeData={[{}]}
+          onChange={() => {}}
+          dragDnDType="example"
+          dropDnDType={['example']}
+        />,
+        {
+          createNodeMock: () => ({}),
+        }
+      )
       .toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -29,15 +37,36 @@ describe('<SortableTree />', () => {
     let wrapper;
 
     // No nodes
-    wrapper = mount(<SortableTree treeData={[]} onChange={() => {}} dragDnDType="example" dropDnDType={["example"]} />);
+    wrapper = mount(
+      <SortableTree
+        treeData={[]}
+        onChange={() => {}}
+        dragDnDType="example"
+        dropDnDType={['example']}
+      />
+    );
     expect(wrapper.find(TreeNode).length).toEqual(0);
 
     // Single node
-    wrapper = mount(<SortableTree treeData={[{}]} onChange={() => {}} dragDnDType="example" dropDnDType={["example"]} />);
+    wrapper = mount(
+      <SortableTree
+        treeData={[{}]}
+        onChange={() => {}}
+        dragDnDType="example"
+        dropDnDType={['example']}
+      />
+    );
     expect(wrapper.find(TreeNode).length).toEqual(1);
 
     // Two nodes
-    wrapper = mount(<SortableTree treeData={[{}, {}]} onChange={() => {}} dragDnDType="example" dropDnDType={["example"]} />);
+    wrapper = mount(
+      <SortableTree
+        treeData={[{}, {}]}
+        onChange={() => {}}
+        dragDnDType="example"
+        dropDnDType={['example']}
+      />
+    );
     expect(wrapper.find(TreeNode).length).toEqual(2);
   });
 
@@ -48,7 +77,7 @@ describe('<SortableTree />', () => {
     wrapper = mount(
       <SortableTree
         dragDnDType="example"
-        dropDnDType={["example"]}
+        dropDnDType={['example']}
         treeData={[{ expanded: true, children: [{}] }]}
         onChange={() => {}}
       />
@@ -59,7 +88,7 @@ describe('<SortableTree />', () => {
     wrapper = mount(
       <SortableTree
         dragDnDType="example"
-        dropDnDType={["example"]}
+        dropDnDType={['example']}
         treeData={[
           { expanded: true, children: [{ expanded: true, children: [{}] }] },
         ]}
@@ -72,7 +101,7 @@ describe('<SortableTree />', () => {
     wrapper = mount(
       <SortableTree
         dragDnDType="example"
-        dropDnDType={["example"]}
+        dropDnDType={['example']}
         treeData={[
           { expanded: true, children: [{ expanded: true, children: [{}] }] },
           { expanded: true, children: [{ expanded: true, children: [{}] }] },
@@ -90,7 +119,7 @@ describe('<SortableTree />', () => {
     wrapper = mount(
       <SortableTree
         dragDnDType="example"
-        dropDnDType={["example"]}
+        dropDnDType={['example']}
         treeData={[{ expanded: false, children: [{}] }]}
         onChange={() => {}}
       />
@@ -101,7 +130,7 @@ describe('<SortableTree />', () => {
     wrapper = mount(
       <SortableTree
         dragDnDType="example"
-        dropDnDType={["example"]}
+        dropDnDType={['example']}
         treeData={[
           { expanded: false, children: [{ expanded: false, children: [{}] }] },
         ]}
@@ -114,7 +143,7 @@ describe('<SortableTree />', () => {
     wrapper = mount(
       <SortableTree
         dragDnDType="example"
-        dropDnDType={["example"]}
+        dropDnDType={['example']}
         treeData={[
           { expanded: true, children: [{ expanded: false, children: [{}] }] },
           { expanded: false, children: [{ expanded: false, children: [{}] }] },
@@ -129,9 +158,9 @@ describe('<SortableTree />', () => {
     const wrapper = mount(
       <SortableTree
         dragDnDType="example"
-        dropDnDType={["example"]}
+        dropDnDType={['example']}
         treeData={[{ title: 'a', children: [{ title: 'b' }] }]}
-        onChange={treeData => wrapper.setProps({ treeData })}
+        onChange={(treeData) => wrapper.setProps({ treeData })}
       />
     );
 
@@ -139,17 +168,11 @@ describe('<SortableTree />', () => {
     expect(wrapper.find(TreeNode).length).toEqual(1);
 
     // Expand node and check for the existence of the revealed child
-    wrapper
-      .find('.rst__expandButton')
-      .first()
-      .simulate('click');
+    wrapper.find('.rst__expandButton').first().simulate('click');
     expect(wrapper.find(TreeNode).length).toEqual(2);
 
     // Collapse node and make sure the child has been hidden
-    wrapper
-      .find('.rst__collapseButton')
-      .first()
-      .simulate('click');
+    wrapper.find('.rst__collapseButton').first().simulate('click');
     expect(wrapper.find(TreeNode).length).toEqual(1);
   });
 
@@ -157,7 +180,7 @@ describe('<SortableTree />', () => {
     const wrapper = mount(
       <SortableTree
         dragDnDType="example"
-        dropDnDType={["example"]}
+        dropDnDType={['example']}
         treeData={[{ title: 'a' }]}
         onChange={() => {}}
         style={{ borderWidth: 42 }}
@@ -173,7 +196,7 @@ describe('<SortableTree />', () => {
     const wrapper = mount(
       <SortableTree
         dragDnDType="example"
-        dropDnDType={["example"]}
+        dropDnDType={['example']}
         treeData={[{ title: 'a' }]}
         onChange={() => {}}
         innerStyle={{ borderWidth: 42 }}
@@ -190,7 +213,7 @@ describe('<SortableTree />', () => {
     const wrapper = mount(
       <SortableTree
         dragDnDType="example"
-        dropDnDType={["example"]}
+        dropDnDType={['example']}
         treeData={[{ title: 'a' }, { title: 'b', extraHeight: 2 }]}
         onChange={() => {}}
         rowHeight={12}
@@ -210,7 +233,7 @@ describe('<SortableTree />', () => {
     const virtualized = mount(
       <SortableTree
         dragDnDType="example"
-        dropDnDType={["example"]}
+        dropDnDType={['example']}
         treeData={[{ title: 'a' }, { title: 'b' }]}
         onChange={() => {}}
         isVirtualized
@@ -222,7 +245,7 @@ describe('<SortableTree />', () => {
     const notVirtualized = mount(
       <SortableTree
         dragDnDType="example"
-        dropDnDType={["example"]}
+        dropDnDType={['example']}
         treeData={[{ title: 'a' }, { title: 'b' }]}
         onChange={() => {}}
         isVirtualized={false}
@@ -236,7 +259,7 @@ describe('<SortableTree />', () => {
     const wrapper = mount(
       <SortableTree
         dragDnDType="example"
-        dropDnDType={["example"]}
+        dropDnDType={['example']}
         treeData={[{ title: 'a' }]}
         onChange={() => {}}
         scaffoldBlockPxWidth={12}
@@ -251,7 +274,7 @@ describe('<SortableTree />', () => {
     const wrapper = mount(
       <SortableTree
         dragDnDType="example"
-        dropDnDType={["example"]}
+        dropDnDType={['example']}
         treeData={[{ title }]}
         onChange={() => {}}
         generateNodeProps={({ node }) => ({ buttons: [node.title] })}
@@ -267,24 +290,18 @@ describe('<SortableTree />', () => {
     const wrapper = mount(
       <SortableTree
         dragDnDType="example"
-        dropDnDType={["example"]}
+        dropDnDType={['example']}
         treeData={[{ title: 'a', children: [{ title: 'b' }] }]}
-        onChange={treeData => wrapper.setProps({ treeData })}
+        onChange={(treeData) => wrapper.setProps({ treeData })}
         onVisibilityToggle={({ expanded }) => {
           out = expanded ? 'expanded' : 'collapsed';
         }}
       />
     );
 
-    wrapper
-      .find('.rst__expandButton')
-      .first()
-      .simulate('click');
+    wrapper.find('.rst__expandButton').first().simulate('click');
     expect(out).toEqual('expanded');
-    wrapper
-      .find('.rst__collapseButton')
-      .first()
-      .simulate('click');
+    wrapper.find('.rst__collapseButton').first().simulate('click');
     expect(out).toEqual('collapsed');
   });
 
@@ -301,7 +318,7 @@ describe('<SortableTree />', () => {
     const wrapper = mount(
       <SortableTree
         dragDnDType="example"
-        dropDnDType={["example"]}
+        dropDnDType={['example']}
         treeData={[{ title: 'a' }]}
         onChange={() => {}}
         nodeContentRenderer={FakeNode}
@@ -316,7 +333,7 @@ describe('<SortableTree />', () => {
     mount(
       <SortableTree
         dragDnDType="example"
-        dropDnDType={["example"]}
+        dropDnDType={['example']}
         treeData={[{ title: 'a', children: [{ title: 'b' }] }]}
         searchQuery="b"
         searchFocusOffset={0}
@@ -335,7 +352,7 @@ describe('<SortableTree />', () => {
     const wrapper = mount(
       <SortableTree
         dragDnDType="example"
-        dropDnDType={["example"]}
+        dropDnDType={['example']}
         treeData={[
           { title: 'a', children: [{ title: 'b' }] },
           { title: 'a', children: [{ title: 'be' }] },
@@ -368,7 +385,7 @@ describe('<SortableTree />', () => {
     const wrapper = mount(
       <SortableTree
         dragDnDType="example"
-        dropDnDType={["example"]}
+        dropDnDType={['example']}
         treeData={[
           {
             title: 'a',
@@ -383,7 +400,7 @@ describe('<SortableTree />', () => {
             children: [{ title: 'f', children: [{ title: 'dd' }] }],
           },
         ]}
-        onChange={treeData => wrapper.setProps({ treeData })}
+        onChange={(treeData) => wrapper.setProps({ treeData })}
         onlyExpandSearchedNodes
       />
     );
@@ -446,7 +463,7 @@ describe('<SortableTree />', () => {
         <DndProvider backend={HTML5Backend}>
           <SortableTreeWithoutDndContext
             dragDnDType="example"
-            dropDnDType={["example"]}
+            dropDnDType={['example']}
             treeData={[{ title: 'a' }]}
             onChange={() => {}}
           />
@@ -458,7 +475,7 @@ describe('<SortableTree />', () => {
         <DndProvider backend={TouchBackend}>
           <SortableTreeWithoutDndContext
             dragDnDType="example"
-            dropDnDType={["example"]}
+            dropDnDType={['example']}
             treeData={[{ title: 'a' }]}
             onChange={() => {}}
           />
@@ -481,7 +498,7 @@ describe('<SortableTree />', () => {
         </DndContext.Consumer>
         <SortableTreeWithoutDndContext
           dragDnDType="example"
-          dropDnDType={["example"]}
+          dropDnDType={['example']}
           treeData={treeData}
           onDragStateChanged={onDragStateChanged}
           onChange={() => {}}
@@ -497,10 +514,7 @@ describe('<SortableTree />', () => {
       .nodeContentRenderer;
 
     // And get the first such component
-    const nodeInstance = wrapper
-      .find(wrappedNodeType)
-      .first()
-      .instance();
+    const nodeInstance = wrapper.find(wrappedNodeType).first().instance();
 
     backend.simulateBeginDrag([nodeInstance.getHandlerId()]);
 

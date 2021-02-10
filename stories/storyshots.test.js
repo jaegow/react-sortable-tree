@@ -8,22 +8,22 @@ window.IntersectionObserver = class IntersectionObserver {
   constructor() {}
 
   // eslint-disable-next-line class-methods-use-this
-  disconnect () {
+  disconnect() {
     return null;
   }
 
   // eslint-disable-next-line class-methods-use-this
-  observe () {
+  observe() {
     return null;
   }
 
   // eslint-disable-next-line class-methods-use-this
-  takeRecords () {
+  takeRecords() {
     return null;
   }
 
   // eslint-disable-next-line class-methods-use-this
-  unobserve () {
+  unobserve() {
     return null;
   }
 };

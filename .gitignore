@@ -11,6 +11,7 @@ coverage
 *.iws
 *.sublime-*
 .idea/
+.vscode
 *.DS_Store
 
 # Build directories (Will be preserved by npm)
@@ -22,5 +23,3 @@ style.css.map
 
 # Error files
 yarn-error.log
-
-.vscode

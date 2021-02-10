@@ -51,10 +51,10 @@ export default class App extends Component {
         <div style={{ height: 300 }}>
           <SortableTree
             treeData={this.state.treeData}
-            canNodeHaveChildren={node => !node.isPerson}
-            onChange={treeData => this.setState({ treeData })}
+            canNodeHaveChildren={(node) => !node.isPerson}
+            onChange={(treeData) => this.setState({ treeData })}
             dragDnDType="example"
-            dropDnDType={["example"]}
+            dropDnDType={['example']}
           />
         </div>
       </div>

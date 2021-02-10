@@ -8,8 +8,8 @@ export default class DndManager {
     this.treeRef = treeRef;
     this.lastMove = {
       draggingId: null,
-      hoveredId: null
-    }
+      hoveredId: null,
+    };
   }
 
   get startDrag() {
@@ -59,8 +59,8 @@ export default class DndManager {
   resetLastMove() {
     this.lastMove = {
       draggingId: null,
-      hoveredId: null
-    }
+      hoveredId: null,
+    };
   }
 
   getTargetDepth(dropTargetProps, monitor, component) {
@@ -173,7 +173,7 @@ export default class DndManager {
 
   wrapSource(el) {
     const nodeDragSource = {
-      beginDrag: props => {
+      beginDrag: (props) => {
         this.startDrag(props);
 
         return {
@@ -251,13 +251,16 @@ export default class DndManager {
           return;
         }
 
-        if (draggedNode.id === this.lastMove.draggingId && dropTargetProps.node.id === this.lastMove.hoveredId) {
-          return
+        if (
+          draggedNode.id === this.lastMove.draggingId &&
+          dropTargetProps.node.id === this.lastMove.hoveredId
+        ) {
+          return;
         }
 
         this.lastMove = {
           draggingId: draggedNode.id,
-          hoveredId: dropTargetProps.node.id
+          hoveredId: dropTargetProps.node.id,
         };
 
         // throttle `dragHover` work to available animation frames

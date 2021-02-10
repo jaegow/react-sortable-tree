@@ -134,7 +134,10 @@ function walkDescendants({
 
   // Get all descendants
   let childIndex = currentIndex;
-  const childCount = maxLength > 0 ? Math.min(maxLength, node.children.length) : node.children.length;
+  const childCount =
+    maxLength > 0
+      ? Math.min(maxLength, node.children.length)
+      : node.children.length;
   if (typeof node.children !== 'function') {
     for (let i = 0; i < childCount; i += 1) {
       childIndex = walkDescendants({
@@ -249,7 +252,7 @@ function mapDescendants({
  * @return {number} count
  */
 export function getVisibleNodeCount({ treeData }) {
-  const traverse = node => {
+  const traverse = (node) => {
     if (
       !node.children ||
       node.expanded !== true ||
@@ -717,7 +720,7 @@ function addNodeAtDepthAndIndex({
   getNodeKey,
   path = [],
 }) {
-  const selfPath = n =>
+  const selfPath = (n) =>
     isPseudoRoot
       ? []
       : [...path, getNodeKey({ node: n, treeIndex: currentIndex })];
@@ -970,7 +973,7 @@ export function getFlatDataFromTree({
     getNodeKey,
     maxLength,
     ignoreCollapsed,
-    callback: nodeInfo => {
+    callback: (nodeInfo) => {
       flattened.push(nodeInfo);
     },
   });
@@ -991,8 +994,8 @@ export function getFlatDataFromTree({
  */
 export function getTreeFromFlatData({
   flatData,
-  getKey = node => node.id,
-  getParentKey = node => node.parentId,
+  getKey = (node) => node.id,
+  getParentKey = (node) => node.parentId,
   rootKey = '0',
 }) {
   if (!flatData) {
@@ -1000,7 +1003,7 @@ export function getTreeFromFlatData({
   }
 
   const childrenToParents = {};
-  flatData.forEach(child => {
+  flatData.forEach((child) => {
     const parentKey = getParentKey(child);
 
     if (parentKey in childrenToParents) {
@@ -1014,19 +1017,19 @@ export function getTreeFromFlatData({
     return [];
   }
 
-  const trav = parent => {
+  const trav = (parent) => {
     const parentKey = getKey(parent);
     if (parentKey in childrenToParents) {
       return {
         ...parent,
-        children: childrenToParents[parentKey].map(child => trav(child)),
+        children: childrenToParents[parentKey].map((child) => trav(child)),
       };
     }
 
     return { ...parent };
   };
 
-  return childrenToParents[rootKey].map(child => trav(child));
+  return childrenToParents[rootKey].map((child) => trav(child));
 }
 
 /**
@@ -1042,7 +1045,7 @@ export function isDescendant(older, younger) {
     !!older.children &&
     typeof older.children !== 'function' &&
     older.children.some(
-      child => child === younger || isDescendant(child, younger)
+      (child) => child === younger || isDescendant(child, younger)
     )
   );
 }
@@ -1139,7 +1142,7 @@ export function find({
     const newNode = { ...node };
     if (hasChildren) {
       // Get all descendants
-      newNode.children = newNode.children.map(child => {
+      newNode.children = newNode.children.map((child) => {
         const mapResult = trav({
           node: child,
           currentIndex: childIndex + 1,
@@ -1180,7 +1183,7 @@ export function find({
 
     // Cannot assign a treeIndex to hidden nodes
     if (!isPseudoRoot && !newNode.expanded) {
-      matches = matches.map(match => ({
+      matches = matches.map((match) => ({
         ...match,
         treeIndex: null,
       }));

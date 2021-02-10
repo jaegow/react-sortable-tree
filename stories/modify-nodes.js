@@ -26,18 +26,18 @@ export default class App extends Component {
         <div style={{ height: 300 }}>
           <SortableTree
             treeData={this.state.treeData}
-            onChange={treeData => this.setState({ treeData })}
+            onChange={(treeData) => this.setState({ treeData })}
             dragDnDType="example"
-            dropDnDType={["example"]}
+            dropDnDType={['example']}
             generateNodeProps={({ node, path }) => ({
               title: (
                 <input
                   style={{ fontSize: '1.1rem' }}
                   value={node.name}
-                  onChange={event => {
+                  onChange={(event) => {
                     const name = event.target.value;
 
-                    this.setState(state => ({
+                    this.setState((state) => ({
                       treeData: changeNodeAtPath({
                         treeData: state.treeData,
                         path,

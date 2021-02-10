@@ -34,7 +34,7 @@ class App extends Component {
         >
           <SortableTree
             treeData={this.state.treeData1}
-            onChange={treeData1 => this.setState({ treeData1 })}
+            onChange={(treeData1) => this.setState({ treeData1 })}
             dragDnDType={externalNodeType}
             dropDnDType={[externalNodeType]}
             shouldCopyOnOutsideDrop={shouldCopyOnOutsideDrop}
@@ -51,7 +51,7 @@ class App extends Component {
         >
           <SortableTree
             treeData={this.state.treeData2}
-            onChange={treeData2 => this.setState({ treeData2 })}
+            onChange={(treeData2) => this.setState({ treeData2 })}
             dragDnDType={externalNodeType}
             dropDnDType={[externalNodeType]}
             shouldCopyOnOutsideDrop={shouldCopyOnOutsideDrop}
@@ -67,7 +67,7 @@ class App extends Component {
               type="checkbox"
               id="should-copy"
               value={shouldCopyOnOutsideDrop}
-              onChange={event =>
+              onChange={(event) =>
                 this.setState({
                   shouldCopyOnOutsideDrop: event.target.checked,
                 })
