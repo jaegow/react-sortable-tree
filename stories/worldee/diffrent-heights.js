@@ -43,12 +43,7 @@ export default class App extends Component {
           <SortableTree
             placeholderRenderer={() => {
               return (
-                <div
-                  className={classnames(
-                    'empty-day-placeholder',
-                    'rst__placeholder'
-                  )}
-                >
+                <div className={classnames('empty-day-placeholder', 'rst__placeholder')}>
                   <div>
                     <div>
                       <span>PLACE HOLDER</span>
@@ -57,9 +52,7 @@ export default class App extends Component {
                 </div>
               );
             }}
-            loaderRenderer={() => (
-              <div style={{ height: '40px', width: '100%' }}>LOADER</div>
-            )}
+            loaderRenderer={() => <div style={{ height: '40px', width: '100%' }}>LOADER</div>}
             isVirtualized={false}
             treeData={this.state.treeData1}
             onChange={(treeData1) => {
@@ -101,9 +94,7 @@ export default class App extends Component {
         Tree 2:
         <div style={{ padding: '30px', border: '2px solid black' }}>
           <SortableTree
-            loaderRenderer={() => (
-              <div style={{ height: '40px', width: '100%' }}>LOADER</div>
-            )}
+            loaderRenderer={() => <div style={{ height: '40px', width: '100%' }}>LOADER</div>}
             isVirtualized={false}
             treeData={this.state.treeData2}
             onChange={(treeData2) => {
@@ -123,10 +114,7 @@ export default class App extends Component {
                   draggableItemRenderer={() => <div>X</div>}
                   itemRenderer={(isDragging, handle) => {
                     return (
-                      <div
-                        className="item-wrapper"
-                        style={{ height: '100px', margin: '10px' }}
-                      >
+                      <div className="item-wrapper" style={{ height: '100px', margin: '10px' }}>
                         <div>{props.node.id}</div>
                         <>{handle}</>
                         <span>CONTENT</span>

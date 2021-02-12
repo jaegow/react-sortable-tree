@@ -9,9 +9,7 @@ describe('insertNode', () => {
       depth: 0,
       minimumTreeIndex: 0,
       newNode: {},
-      getNodeKey: ({
-        treeIndex
-      }: any) => treeIndex,
+      getNodeKey: ({ treeIndex }: any) => treeIndex,
     };
 
     let firstCall = insertNode(params);
@@ -22,9 +20,6 @@ describe('insertNode', () => {
     secondCall = memoizedInsertNode(params);
     expect(firstCall === secondCall).toEqual(true);
 
-    expect(
-      memoizedInsertNode(params) ===
-        memoizedInsertNode({ ...params, treeData: [{}] })
-    ).toEqual(false);
+    expect(memoizedInsertNode(params) === memoizedInsertNode({ ...params, treeData: [{}] })).toEqual(false);
   });
 });

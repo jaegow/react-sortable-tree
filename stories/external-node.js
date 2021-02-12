@@ -41,7 +41,7 @@ class externalNodeBaseComponent extends Component {
       >
         {node.title}
       </div>,
-      { dropEffect: 'copy' }
+      { dropEffect: 'copy' },
     );
   }
 }
@@ -52,7 +52,7 @@ externalNodeBaseComponent.propTypes = {
 const YourExternalNodeComponent = DragSource(
   externalNodeType,
   externalNodeSpec,
-  externalNodeCollect
+  externalNodeCollect,
 )(externalNodeBaseComponent);
 
 class App extends Component {
@@ -76,8 +76,7 @@ class App extends Component {
               dropDnDType={[externalNodeType]}
             />
           </div>
-          <YourExternalNodeComponent node={{ title: 'Baby Rabbit' }} />← drag
-          this
+          <YourExternalNodeComponent node={{ title: 'Baby Rabbit' }} />← drag this
         </div>
       </DndProvider>
     );

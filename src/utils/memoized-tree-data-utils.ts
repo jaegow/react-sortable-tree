@@ -1,8 +1,4 @@
-import {
-  insertNode,
-  getDescendantCount,
-  getFlatDataFromTree,
-} from './tree-data-utils';
+import { insertNode, getDescendantCount, getFlatDataFromTree } from './tree-data-utils';
 
 const memoize = (f: any) => {
   let savedArgsArray: any = [];

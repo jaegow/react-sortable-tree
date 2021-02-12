@@ -22,10 +22,7 @@ export default class App extends Component {
                 {
                   title: (
                     <div>
-                      Find it on{' '}
-                      <a href="https://www.npmjs.com/package/react-sortable-tree-theme-file-explorer">
-                        npm
-                      </a>
+                      Find it on <a href="https://www.npmjs.com/package/react-sortable-tree-theme-file-explorer">npm</a>
                     </div>
                   ),
                 },
@@ -37,8 +34,7 @@ export default class App extends Component {
         {
           title: (
             <div>
-              Simply set it to the <code>theme</code> prop and you&rsquo;re
-              done!
+              Simply set it to the <code>theme</code> prop and you&rsquo;re done!
             </div>
           ),
         },

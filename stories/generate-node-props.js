@@ -48,14 +48,9 @@ export default class App extends Component {
               return {
                 style: {
                   boxShadow: `0 0 0 4px ${playerColor.toLowerCase()}`,
-                  textShadow:
-                    path.length === 1
-                      ? `1px 1px 1px ${playerColor.toLowerCase()}`
-                      : 'none',
+                  textShadow: path.length === 1 ? `1px 1px 1px ${playerColor.toLowerCase()}` : 'none',
                 },
-                title: `${playerColor} ${
-                  path.length === 1 ? 'Captain' : node.position
-                }`,
+                title: `${playerColor} ${path.length === 1 ? 'Captain' : node.position}`,
                 onClick: () => {
                   this.setState((state) => ({
                     treeData: changeNodeAtPath({

@@ -1,10 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 
 export function slideRows(rows: any, fromIndex: any, toIndex: any, count = 1) {
-  const rowsWithoutMoved = [
-    ...rows.slice(0, fromIndex),
-    ...rows.slice(fromIndex + count),
-  ];
+  const rowsWithoutMoved = [...rows.slice(0, fromIndex), ...rows.slice(fromIndex + count)];
 
   return [
     ...rowsWithoutMoved.slice(0, toIndex),

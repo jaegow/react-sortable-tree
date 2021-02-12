@@ -1,6 +1,4 @@
-export function defaultGetNodeKey({
-  treeIndex
-}: any) {
+export function defaultGetNodeKey({ treeIndex }: any) {
   return treeIndex;
 }
 
@@ -15,8 +13,7 @@ function getReactElementText(parent: any) {
     typeof parent !== 'object' ||
     !parent.props ||
     !parent.props.children ||
-    (typeof parent.props.children !== 'string' &&
-      typeof parent.props.children !== 'object')
+    (typeof parent.props.children !== 'string' && typeof parent.props.children !== 'object')
   ) {
     return '';
   }
@@ -25,18 +22,14 @@ function getReactElementText(parent: any) {
     return parent.props.children;
   }
 
-  return parent.props.children
-    .map((child: any) => getReactElementText(child))
-    .join('');
+  return parent.props.children.map((child: any) => getReactElementText(child)).join('');
 }
 
 // Search for a query string inside a node property
 function stringSearch(key: any, searchQuery: any, node: any, path: any, treeIndex: any) {
   if (typeof node[key] === 'function') {
     // Search within text after calling its function to generate the text
-    return (
-      String(node[key]({ node, path, treeIndex })).indexOf(searchQuery) > -1
-    );
+    return String(node[key]({ node, path, treeIndex })).indexOf(searchQuery) > -1;
   }
   if (typeof node[key] === 'object') {
     // Search within text inside react elements
@@ -47,12 +40,7 @@ function stringSearch(key: any, searchQuery: any, node: any, path: any, treeInde
   return node[key] && String(node[key]).indexOf(searchQuery) > -1;
 }
 
-export function defaultSearchMethod({
-  node,
-  path,
-  treeIndex,
-  searchQuery
-}: any) {
+export function defaultSearchMethod({ node, path, treeIndex, searchQuery }: any) {
   return (
     stringSearch('title', searchQuery, node, path, treeIndex) ||
     stringSearch('subtitle', searchQuery, node, path, treeIndex)

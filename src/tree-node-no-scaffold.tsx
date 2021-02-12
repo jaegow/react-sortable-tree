@@ -4,23 +4,23 @@ import classnames from './utils/classnames';
 import './tree-node.css';
 
 type OwnProps = {
-    loaderRenderer?: (...args: any[]) => any;
-    treeIndex: number;
-    treeId: string;
-    swapFrom?: number;
-    swapDepth?: number;
-    swapLength?: number;
-    scaffoldBlockPxWidth: number;
-    lowerSiblingCounts: number[];
-    listIndex: number;
-    connectDropTarget: (...args: any[]) => any;
-    isOver: boolean;
-    canDrop?: boolean;
-    draggedNode?: {};
-    getPrevRow: (...args: any[]) => any;
-    node: {};
-    path: (string | number)[];
-    rowDirection?: string;
+  loaderRenderer?: (...args: any[]) => any;
+  treeIndex: number;
+  treeId: string;
+  swapFrom?: number;
+  swapDepth?: number;
+  swapLength?: number;
+  scaffoldBlockPxWidth: number;
+  lowerSiblingCounts: number[];
+  listIndex: number;
+  connectDropTarget: (...args: any[]) => any;
+  isOver: boolean;
+  canDrop?: boolean;
+  draggedNode?: {};
+  getPrevRow: (...args: any[]) => any;
+  node: {};
+  path: (string | number)[];
+  rowDirection?: string;
 };
 
 type State = any;
@@ -28,7 +28,7 @@ type State = any;
 type Props = OwnProps & typeof TreeNodeNoScaffold.defaultProps;
 
 class TreeNodeNoScaffold extends Component<Props, State> {
-static defaultProps = {
+  static defaultProps = {
     swapFrom: null,
     swapDepth: null,
     swapLength: null,
@@ -36,7 +36,7 @@ static defaultProps = {
     draggedNode: null,
     rowDirection: 'ltr',
     loaderRenderer: null,
-};
+  };
 
   constructor(props: Props) {
     super(props);
@@ -75,24 +75,21 @@ static defaultProps = {
 
     // @ts-expect-error ts-migrate(2349) FIXME: This expression is not callable.
     return connectDropTarget(
-      // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
-      <div
-        {...otherProps}
-        className={classnames('rst__node', rowDirectionClass)}
-      >
+      //
+      <div {...otherProps} className={classnames('rst__node', rowDirectionClass)}>
         {this.state.isVisible || loaderRenderer === null ? (
-          // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+          //
           <div className="rst__nodeContent">
             {Children.map(children, (child) =>
               cloneElement(child, {
                 isOver,
                 canDrop,
                 draggedNode,
-              })
+              }),
             )}
           </div>
         ) : (
-          // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
+          //
           <InView
             root={null}
             rootMargin="500px"
@@ -108,7 +105,7 @@ static defaultProps = {
             {loaderRenderer(listIndex)}
           </InView>
         )}
-      </div>
+      </div>,
     );
   }
 }

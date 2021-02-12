@@ -66,8 +66,7 @@ export default class App extends Component {
 
   render() {
     const getNodeKey = ({ treeIndex }) => treeIndex;
-    const getRandomName = () =>
-      firstNames[Math.floor(Math.random() * firstNames.length)];
+    const getRandomName = () => firstNames[Math.floor(Math.random() * firstNames.length)];
     return (
       <div>
         <div style={{ height: 300 }}>
@@ -87,9 +86,7 @@ export default class App extends Component {
                         expandParent: true,
                         getNodeKey,
                         newNode: {
-                          title: `${getRandomName()} ${
-                            node.title.split(' ')[0]
-                          }sson`,
+                          title: `${getRandomName()} ${node.title.split(' ')[0]}sson`,
                         },
                         addAsFirstChild: state.addAsFirstChild,
                       }).treeData,

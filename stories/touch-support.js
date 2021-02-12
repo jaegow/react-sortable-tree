@@ -16,9 +16,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      treeData: [
-        { title: 'Chicken', expanded: true, children: [{ title: 'Egg' }] },
-      ],
+      treeData: [{ title: 'Chicken', expanded: true, children: [{ title: 'Egg' }] }],
     };
   }
 
@@ -26,9 +24,7 @@ class App extends Component {
     return (
       <DndProvider backend={dndBackend}>
         <div>
-          <span>
-            This is {!isTouchDevice && 'not '}a touch-supporting browser
-          </span>
+          <span>This is {!isTouchDevice && 'not '}a touch-supporting browser</span>
 
           <div style={{ height: 300 }}>
             <SortableTree

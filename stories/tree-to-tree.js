@@ -8,10 +8,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      treeData1: [
-        { title: 'node1', children: [{ title: 'Child node' }] },
-        { title: 'node2' },
-      ],
+      treeData1: [{ title: 'node1', children: [{ title: 'Child node' }] }, { title: 'node2' }],
       treeData2: [{ title: 'node3' }, { title: 'node4' }],
       shouldCopyOnOutsideDrop: false,
     };

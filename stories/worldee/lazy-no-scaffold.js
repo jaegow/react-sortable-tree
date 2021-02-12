@@ -19,9 +19,7 @@ export default class App extends Component {
   render() {
     return (
       <SortableTree
-        loaderRenderer={() => (
-          <div style={{ height: '40px', width: '100%' }}>LOADER</div>
-        )}
+        loaderRenderer={() => <div style={{ height: '40px', width: '100%' }}>LOADER</div>}
         isVirtualized={false}
         treeData={this.state.treeData}
         onChange={(treeData) => this.setState({ treeData })}

@@ -1,7 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import initStoryshots, {
-  snapshotWithOptions,
-} from '@storybook/addon-storyshots';
+import initStoryshots, { snapshotWithOptions } from '@storybook/addon-storyshots';
 
 window.IntersectionObserver = class IntersectionObserver {
   // eslint-disable-next-line no-useless-constructor,no-empty-function

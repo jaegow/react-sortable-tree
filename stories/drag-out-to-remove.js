@@ -39,7 +39,7 @@ class trashAreaBaseComponent extends Component {
         }}
       >
         {children}
-      </div>
+      </div>,
     );
   }
 }
@@ -48,11 +48,7 @@ trashAreaBaseComponent.propTypes = {
   children: PropTypes.node.isRequired,
   isOver: PropTypes.bool.isRequired,
 };
-const TrashAreaComponent = DropTarget(
-  trashAreaType,
-  trashAreaSpec,
-  trashAreaCollect
-)(trashAreaBaseComponent);
+const TrashAreaComponent = DropTarget(trashAreaType, trashAreaSpec, trashAreaCollect)(trashAreaBaseComponent);
 
 class App extends Component {
   constructor(props) {

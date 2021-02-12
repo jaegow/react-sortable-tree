@@ -51,7 +51,7 @@ class TreeItemRenderer extends Component {
         </div>,
         {
           dropEffect: 'copy',
-        }
+        },
       );
     };
 
@@ -72,7 +72,7 @@ class TreeItemRenderer extends Component {
                 isSearchFocus && 'rstRowSearchFocus',
                 rowDirectionClass,
                 customPlaceholderClass,
-                className
+                className,
               )}
               style={{
                 opacity: isDraggedDescendant ? 0.5 : 1,
@@ -80,7 +80,7 @@ class TreeItemRenderer extends Component {
               }}
             >
               {itemRenderer(isDragging, handle)}
-            </div>
+            </div>,
           )}
         </div>
       );
@@ -98,10 +98,7 @@ class TreeItemRenderer extends Component {
                 <div
                   // eslint-disable-next-line react/no-array-index-key
                   key={index}
-                  className={classnames(
-                    'rstLoadingCirclePoint',
-                    'rowDirectionClass'
-                  )}
+                  className={classnames('rstLoadingCirclePoint', 'rowDirectionClass')}
                 />
               ))}
             </div>
@@ -114,14 +111,8 @@ class TreeItemRenderer extends Component {
     }
 
     return (
-      <div
-        className="disableSelection"
-        style={{ height: '100%' }}
-        {...otherProps}
-      >
-        {draggableItemRenderer
-          ? content(handle)
-          : draggingElement(content(handle))}
+      <div className="disableSelection" style={{ height: '100%' }} {...otherProps}>
+        {draggableItemRenderer ? content(handle) : draggingElement(content(handle))}
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import SortableTree, {
   SortableTreeWithoutDndContext,
-// @ts-expect-error ts-migrate(6142) FIXME: Module './react-sortable-tree' was resolved to '/U... Remove this comment to see the full error message
+  // @ts-expect-error ts-migrate(6142) FIXME: Module './react-sortable-tree' was resolved to '/U... Remove this comment to see the full error message
 } from './react-sortable-tree';
 
 export * from './utils/default-handlers';

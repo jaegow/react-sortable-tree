@@ -25,10 +25,7 @@ export default class App extends Component {
           { title },
           {
             title,
-            children: [
-              { title },
-              getStack(left - 1, hasNeedle && (left + 1) % 2),
-            ],
+            children: [{ title }, getStack(left - 1, hasNeedle && (left + 1) % 2)],
           },
         ],
       };
@@ -41,12 +38,7 @@ export default class App extends Component {
       treeData: [
         {
           title: 'Haystack',
-          children: [
-            getStack(3, true),
-            getStack(3),
-            { title },
-            getStack(2, true),
-          ],
+          children: [getStack(3, true), getStack(3), { title }, getStack(2, true)],
         },
       ],
     };
@@ -57,8 +49,7 @@ export default class App extends Component {
 
     // Case insensitive search of `node.title`
     const customSearchMethod = ({ node, searchQuery }) =>
-      searchQuery &&
-      node.title.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1;
+      searchQuery && node.title.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1;
 
     const selectPrevMatch = () =>
       this.setState({
@@ -70,10 +61,7 @@ export default class App extends Component {
 
     const selectNextMatch = () =>
       this.setState({
-        searchFocusIndex:
-          searchFocusIndex !== null
-            ? (searchFocusIndex + 1) % searchFoundCount
-            : 0,
+        searchFocusIndex: searchFocusIndex !== null ? (searchFocusIndex + 1) % searchFoundCount : 0,
       });
 
     return (
@@ -91,24 +79,14 @@ export default class App extends Component {
             placeholder="Search..."
             style={{ fontSize: '1rem' }}
             value={searchString}
-            onChange={(event) =>
-              this.setState({ searchString: event.target.value })
-            }
+            onChange={(event) => this.setState({ searchString: event.target.value })}
           />
 
-          <button
-            type="button"
-            disabled={!searchFoundCount}
-            onClick={selectPrevMatch}
-          >
+          <button type="button" disabled={!searchFoundCount} onClick={selectPrevMatch}>
             &lt;
           </button>
 
-          <button
-            type="submit"
-            disabled={!searchFoundCount}
-            onClick={selectNextMatch}
-          >
+          <button type="submit" disabled={!searchFoundCount} onClick={selectNextMatch}>
             &gt;
           </button>
 
@@ -148,8 +126,7 @@ export default class App extends Component {
             searchFinishCallback={(matches) =>
               this.setState({
                 searchFoundCount: matches.length,
-                searchFocusIndex:
-                  matches.length > 0 ? searchFocusIndex % matches.length : 0,
+                searchFocusIndex: matches.length > 0 ? searchFocusIndex % matches.length : 0,
               })
             }
             //
