@@ -26,13 +26,9 @@
     "src/**/*.tsx",
     "src/**/*.ts",
     "jest/**/*.ts",
-    "src/typings/*.d.ts"
   ],
   "exclude": [
     "**/node_modules",
     "**/.*/"
-  ],
-  "files": [
-    "src/index.d.ts"
   ]
 }
