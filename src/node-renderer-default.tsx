@@ -136,7 +136,6 @@ class NodeRendererDefault extends Component<Props> {
           )}
 
         <div className={classnames('rst__rowWrapper', rowDirectionClass)}>
-          {/* @ts-expect-error ts-migrate(2349) FIXME: This expression is not callable. */}
           {connectDragPreview(
             <div
               className={classnames(

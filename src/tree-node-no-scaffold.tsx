@@ -101,7 +101,6 @@ class TreeNodeNoScaffold extends Component<Props, State> {
               }
             }}
           >
-            {/* @ts-expect-error ts-migrate(2349) FIXME: This expression is not callable. */}
             {loaderRenderer(listIndex)}
           </InView>
         )}
